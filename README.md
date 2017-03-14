@@ -9,6 +9,13 @@
 
 Skeleton of participants module
 
+# Participants
+
+Sergio Gutiérrez Pérez (@sergupe)
+David García González (@DavidGG1983)
+Oliver Gómez Tejerina (@olivergmez11)
+Alejandro Fernández Matia (@alexmatia)
+
 # Authors
 
 - Herminio García González (@herminiogg)
