@@ -19,11 +19,19 @@ import java.util.Map;
 @EnableKafka
 public class KafkaProducerFactory {
 
-    @Bean
+    /**
+     * Metodo para obtener el productor del stream Kafka.
+     * @return Productor Kafka.
+     */
+	@Bean
     public ProducerFactory<String, String> producerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfigs());
     }
 
+	/**
+	 * Metodo para establecer las propiedades fundamentales deel Kafka
+	 * @return Map con dichas propiedades.
+	 */
     @Bean
     public Map<String, Object> producerConfigs() {
         Map<String, Object> props = new HashMap<>();

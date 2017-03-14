@@ -20,8 +20,13 @@ public class KafkaProducer {
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
 
+    /**
+     * Metodo funndamental para la informacion en Kafka.
+     * @param topic Topico de Kafka.
+     * @param data Datos a enviar.
+     */
     public void send(String topic, String data) {
-        ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(topic, data);
+        ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(topic, data); //Valido por si solo para el manejo de la informacion.
         future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
             @Override
             public void onSuccess(SendResult<String, String> result) {
