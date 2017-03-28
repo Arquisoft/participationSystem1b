@@ -10,7 +10,7 @@ import hello.producers.KafkaProducer;
 
 @Controller
 public class MainController {
-
+	
     @Autowired
     private KafkaProducer kafkaProducer;
 
@@ -25,5 +25,4 @@ public class MainController {
         kafkaProducer.send("exampleTopic", message.getMessage());
         return "redirect:/";
     }
-
 }
