@@ -1,9 +1,9 @@
-package model;
+package hello.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Politician extends AbstractParticipant{
+public class Politician {
 
 	/*
 	 * La clase político se añade de momento al modelo porque nos suena que 
@@ -17,11 +17,11 @@ public class Politician extends AbstractParticipant{
 	private final static int NUM_SUGGESTIONS = 5;
 	
 	public Politician(String name, String surname, String mail, String login, String password) {
-		super(name, surname, mail, login, password);
+	//super(name, surname, mail, login, password);
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
+
 	public void saveParticipant() {
 		// TODO Auto-generated method stub
 	}

@@ -2,14 +2,14 @@ package hello.controllers;
 
 
 import hello.Message;
+import hello.model.CitizenDB;
 import hello.producers.KafkaProducer;
-import model.Participant;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +20,7 @@ public class UserController {
 	
     @Autowired
     private KafkaProducer kafkaProducer;
-    Participant user;
+    CitizenDB user;
 
     //@RequestMapping("/")
     //public String landing(Model model) {

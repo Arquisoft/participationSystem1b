@@ -1,9 +1,9 @@
-package model;
+package hello.model;
 
-public class Admin extends AbstractParticipant{
+public class Admin{
 
 	public Admin(String name, String surname, String mail, String login, String password) {
-		super(name, surname, mail, login, password);
+		//super(name, surname, mail, login, password);
 	}
 
 	public void modifyQuery(int id){
@@ -14,7 +14,7 @@ public class Admin extends AbstractParticipant{
 		//bd. delete bla bla bla..
 	}
 	
-	@Override
+
 	public void saveParticipant() {
 		//bd. insert bla bla bla...
 	}

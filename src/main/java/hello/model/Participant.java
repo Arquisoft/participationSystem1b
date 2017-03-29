@@ -1,17 +1,25 @@
-package model;
+package hello.model;
 
 import java.util.List;
 
-public class Participant extends AbstractParticipant{
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Participant")
+public class Participant {
 	
 	private List<Suggestion> voted_suggestions;
 	private List<Suggestion> commented_suggestions;
 	
 	public Participant(String name,String surname,String mail,String login,String password,
 			List<Suggestion> voted_suggestions,List<Suggestion> commented_suggestions){
-		super(name,surname,mail,login,password);
+	//	super(name,surname,mail,login,password);
 		this.voted_suggestions = voted_suggestions;
 		this.commented_suggestions = commented_suggestions;
+	}
+	
+    Participant() {
 	}
 	
 	public Suggestion getSuggestion(int id){
@@ -42,7 +50,7 @@ public class Participant extends AbstractParticipant{
 		return this.commented_suggestions;
 	}
 	
-	@Override
+	
 	public void saveParticipant() {
 		// TODO Auto-generated method stub
 	}
