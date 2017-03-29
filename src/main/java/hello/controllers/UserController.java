@@ -36,7 +36,6 @@ public class UserController {
 
     @RequestMapping(value="/login", method = RequestMethod.POST)
     public String getLogin(@RequestParam String login, @RequestParam String password, Model mod){
-
         //Participant user = participantService.getParticipant(login);
 
         if(user != null){
@@ -44,6 +43,5 @@ public class UserController {
                 return "user/index";
         }
         return "login";
-
     }
 }
