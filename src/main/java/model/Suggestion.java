@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Suggestion {
 	
+	private Participant creator;
 	private int suggestion_id;
 	private String suggestion_name;
 	private List<Comment> comments;
@@ -18,6 +19,10 @@ public class Suggestion {
 		this.comments = comments;
 		this.num_votes = num_votes;
 		this.suggestion_date = suggestion_date;
+	}
+	
+	public Suggestion(){
+		
 	}
 
 	public String getSuggestion_name() {
@@ -62,5 +67,13 @@ public class Suggestion {
 
 	public void saveSuggestion(){
 		//bd.insert_suggestion()...
+	}
+
+	public Participant getCreator() {
+		return creator;
+	}
+
+	public void setCreator(Participant creator) {
+		this.creator = creator;
 	}
 }
