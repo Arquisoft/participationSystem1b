@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,17 +13,23 @@ public class Suggestion {
 	private int num_votes; // quizás estaría bien que la consulta cargara su número de votos de la BD en primera instancia
 						   // y de cara al rendimiento los mantuviera en esta variable (hablarlo)
 	private Date suggestion_date;
+	private String content;
 	
-	public Suggestion(int suggestion_id,String suggestion_name,List<Comment> comments,int num_votes,Date suggestion_date){
+	public Suggestion(Participant creator,int suggestion_id,String suggestion_name,List<Comment> comments,
+			int num_votes,Date suggestion_date,String content){
+		this.creator = creator;
 		this.suggestion_id = suggestion_id;
 		this.suggestion_name = suggestion_name;
 		this.comments = comments;
 		this.num_votes = num_votes;
 		this.suggestion_date = suggestion_date;
+		this.setContent(content);
 	}
 	
 	public Suggestion(){
-		
+		this.num_votes = 0;
+		comments = new ArrayList<Comment>();
+		this.suggestion_date = new Date();
 	}
 
 	public String getSuggestion_name() {
@@ -75,5 +82,13 @@ public class Suggestion {
 
 	public void setCreator(Participant creator) {
 		this.creator = creator;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 }
