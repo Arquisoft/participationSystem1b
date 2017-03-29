@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -33,6 +34,7 @@ public class UserController {
     //    return "redirect:/";
     //}
 
+    @RequestMapping(value="/login", method = RequestMethod.POST)
     public String getLogin(@RequestParam String login, @RequestParam String password, Model mod){
 
         //Participant user = participantService.getParticipant(login);
