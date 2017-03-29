@@ -1,6 +1,7 @@
-package hello;
+package hello.controllers;
 
 
+import hello.UserInfo;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
