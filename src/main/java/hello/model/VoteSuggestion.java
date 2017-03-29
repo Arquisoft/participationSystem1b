@@ -1,25 +1,19 @@
 package hello.model;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-import hello.model.key.CommentKey;
+import hello.model.key.VoteSuggentionKey;
+
+
 
 @Entity
-@IdClass(CommentKey.class)
-@Table(name = "Comentario")
-public class Comment {
+@IdClass(VoteSuggentionKey.class)
+@Table(name="VotoSugerencia")
+public class VoteSuggestion {
 	
 	@Id
 	@ManyToOne
@@ -27,59 +21,30 @@ public class Comment {
 	@Id
 	@ManyToOne
 	private Suggestion suggestion;
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date date;
-	@OneToMany(mappedBy = "comment")
-	private Set<VoteComment> voteComments;
 	
-	Comment(){
-		
+	VoteSuggestion() {
 	}
 	
-	public Comment(CitizenDB citizenDB , Suggestion suggestion){
-		Association.Comentar.link(citizenDB, suggestion, this);
-		this.date = Calendar.getInstance().getTime();
-	}
-
-	
-	
-	public Set<VoteComment> getVoteComments() {
-		return new HashSet<>(voteComments);
-	}
-	
-	Set<VoteComment> _getVoteComments() {
-		return voteComments;
-	}
-
-	public void setVoteComments(Set<VoteComment> voteComments) {
-		this.voteComments = voteComments;
+	public VoteSuggestion(CitizenDB citizenDB , Suggestion suggestion){
+		Association.votarSugerencia.link(citizenDB, suggestion, this);
 	}
 
 	public CitizenDB getCitizenDB() {
 		return citizenDB;
 	}
-	
+
 	void _setCitizenDB(CitizenDB citizenDB) {
-		this.citizenDB = citizenDB ;
+		this.citizenDB = citizenDB;
 	}
 
 	public Suggestion getSuggestion() {
 		return suggestion;
 	}
-	
+
 	void _setSuggestion(Suggestion suggestion) {
 		this.suggestion = suggestion;
 	}
 
-	public Date getDate() {
-		return date;
-	}
-
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -97,7 +62,7 @@ public class Comment {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Comment other = (Comment) obj;
+		VoteSuggestion other = (VoteSuggestion) obj;
 		if (citizenDB == null) {
 			if (other.citizenDB != null)
 				return false;
@@ -110,8 +75,7 @@ public class Comment {
 			return false;
 		return true;
 	}
+	
+	
 
-	public void saveParticipant(){
-		// algo del tipo db.insert(.....);
-	}
 }

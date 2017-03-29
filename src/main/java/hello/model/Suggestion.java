@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -31,10 +32,46 @@ public class Suggestion {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date suggestion_date;
 	
-	public Suggestion(String title){
+	@ManyToOne
+	private CitizenDB citizenDB;
+	
+	@OneToMany(mappedBy = "suggestion")
+	private Set<VoteSuggestion> voteSuggestions;
+	
+	 Suggestion() {
+	}
+	
+	public Suggestion(String title ,CitizenDB citizenDB){
+		Association.Sugerir.link(citizenDB, this);
 		this.title = title;
 		this.num_votes = 0;
 		this.suggestion_date = Calendar.getInstance().getTime();
+	}
+
+
+	public CitizenDB getCitizenDB() {
+		return citizenDB;
+	}
+
+	public void setCitizenDB(CitizenDB citizenDB) {
+		this.citizenDB = citizenDB;
+	}
+	
+    void _setCitizenDB(CitizenDB citizenDB) {
+		this.citizenDB = citizenDB;
+	}
+
+	public Set<VoteSuggestion> getVoteSuggestions() {
+		return new HashSet<>(voteSuggestions);
+	}
+	
+	Set<VoteSuggestion> _getVoteSuggestions() {
+		return voteSuggestions;
+	}
+
+
+	public void setVoteSuggestions(Set<VoteSuggestion> voteSuggestions) {
+		this.voteSuggestions = voteSuggestions;
 	}
 
 	public String getTitle() {

@@ -6,25 +6,25 @@ import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import hello.model.key.VoteKey;
-
-
+import hello.model.key.VoteCommentKey;
 
 @Entity
-@IdClass(VoteKey.class)
-@Table(name="Voto")
-public class Vote {
+@IdClass(VoteCommentKey.class)
+@Table(name="VotoComentario")
+public class VoteComment {
 	
 	@Id
 	@ManyToOne
 	private Comment comment;
 	@Id
 	@ManyToOne
-	private Suggestion suggestion;
+	private CitizenDB citizenDB;
 	
-	public Vote(Comment comment , Suggestion suggestion){
-		this.comment = comment;
-		this.suggestion = suggestion;
+	VoteComment() {
+	}
+	
+	public VoteComment(Comment comment , CitizenDB citizenDB){
+		Association.votarComentario.link(citizenDB, comment, this);
 	}
 
 	public Comment getComment() {
@@ -35,20 +35,20 @@ public class Vote {
 		this.comment = comment;
 	}
 
-	public Suggestion getSuggestion() {
-		return suggestion;
+	public CitizenDB getCitizenDB() {
+		return citizenDB;
 	}
 
-	void _setSuggestion(Suggestion suggestion) {
-		this.suggestion = suggestion;
+	void _setCitizenDB(CitizenDB citizenDB) {
+		this.citizenDB = citizenDB;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((citizenDB == null) ? 0 : citizenDB.hashCode());
 		result = prime * result + ((comment == null) ? 0 : comment.hashCode());
-		result = prime * result + ((suggestion == null) ? 0 : suggestion.hashCode());
 		return result;
 	}
 
@@ -60,19 +60,20 @@ public class Vote {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Vote other = (Vote) obj;
+		VoteComment other = (VoteComment) obj;
+		if (citizenDB == null) {
+			if (other.citizenDB != null)
+				return false;
+		} else if (!citizenDB.equals(other.citizenDB))
+			return false;
 		if (comment == null) {
 			if (other.comment != null)
 				return false;
 		} else if (!comment.equals(other.comment))
 			return false;
-		if (suggestion == null) {
-			if (other.suggestion != null)
-				return false;
-		} else if (!suggestion.equals(other.suggestion))
-			return false;
 		return true;
 	}
+
 	
 	
 

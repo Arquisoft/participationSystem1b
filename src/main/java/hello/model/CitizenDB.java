@@ -1,6 +1,8 @@
 package hello.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -34,6 +36,17 @@ public class CitizenDB {
 	private String password; //La password que se va a poner al ciudadano
 	@Column(nullable = true)
 	private String type;
+	@OneToMany(mappedBy = "citizenDB")
+	private Set<Comment> comments;
+	
+	@OneToMany(mappedBy = "citizenDB")
+	private Set<VoteComment> votesComments;
+	
+	@OneToMany(mappedBy = "citizenDB")
+	private Set<VoteSuggestion> votesSugerencias;
+	
+	@OneToMany(mappedBy = "citizenDB")
+	private Set<Suggestion> sugerencias;
 	
 
 	/**Constructor de la clase CitizenDB
@@ -58,6 +71,53 @@ public class CitizenDB {
 		this.type = type;
 	}
 	
+	
+	
+	public Set<Suggestion> getSugerencias() {
+		return new HashSet<>(sugerencias);
+	}
+
+	Set<Suggestion> _getSugerencias() {
+		return sugerencias;
+	}
+
+	public void setSugerencias(Set<Suggestion> sugerencias) {
+		this.sugerencias = sugerencias;
+	}
+
+
+
+	public Set<VoteComment> getVotesComments() {
+		return new HashSet<>(votesComments);
+	}
+	
+	Set<VoteComment> _getVotesComments() {
+		return votesComments;
+	}
+
+
+
+	public void setVotesComments(Set<VoteComment> votesComments) {
+		this.votesComments = votesComments;
+	}
+
+
+
+	public Set<VoteSuggestion> getVotesSugerencias() {
+		return new HashSet<>(votesSugerencias);
+	}
+	 Set<VoteSuggestion> _getVotesSugerencias() {
+		return votesSugerencias;
+	}
+
+
+
+	public void setVotesSugerencias(Set<VoteSuggestion> votesSugerencias) {
+		this.votesSugerencias = votesSugerencias;
+	}
+
+
+
 	/**Metodo de modificacion del atributo name
 	 * @param name : name del citizen
 	 */
@@ -73,6 +133,18 @@ public class CitizenDB {
 	}
 	
 	
+
+	public Set<Comment> getComments() {
+		return new HashSet<Comment>(comments);
+	}
+	
+	Set<Comment> _getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
 
 	public String getType() {
 		return type;
