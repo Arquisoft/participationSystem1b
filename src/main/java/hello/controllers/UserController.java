@@ -21,17 +21,17 @@ public class UserController {
     private KafkaProducer kafkaProducer;
     Participant user;
 
-    @RequestMapping("/")
-    public String landing(Model model) {
-        model.addAttribute("message", new Message());
-        return "index";
-    }
+    //@RequestMapping("/")
+    //public String landing(Model model) {
+    //    model.addAttribute("message", new Message());
+    //    return "index";
+    //}
     
-    @RequestMapping("/send")
-    public String send(Model model, @ModelAttribute Message message) {
-        kafkaProducer.send("exampleTopic", message.getMessage());
-        return "redirect:/";
-    }
+    //@RequestMapping("/send")
+    //public String send(Model model, @ModelAttribute Message message) {
+    //    kafkaProducer.send("exampleTopic", message.getMessage());
+    //    return "redirect:/";
+    //}
 
     public String getLogin(@RequestParam String login, @RequestParam String password, Model mod){
 
