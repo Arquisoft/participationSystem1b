@@ -1,15 +1,34 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Crear Sugerencia</title>
+    
     <meta charset="utf-8">
+    
+    <!-- Añadiendo el Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!--Pulling Awesome Font -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Añadiendo Javascript para que funcione correctamente -->
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    
 </head>
 <body>
 	<h1>Crear Sugerencia</h1>
     <form action="#" th:action="@{/suggestion}" th:object="${suggestion}" method="post">
-    	<p>Título: <input type="text" th:field="*{suggestion_name}" /></p>
-        <p>Texto:  <input type="text" th:field="*{content}" /></p>
-        <p><input type="submit" value="Crear" /> <input type="reset" value="Cancelar" /></p>
+    	<div class="form-group">
+    		<label for="idTitulo">Titulo:</label>
+    		<input type="text" class="form-control" id="idTitulo" th:field="*{suggestion_name}" placeholder="Introduzca Titulo" />
+    	</div>
+    	<div class="form-group">
+    		<label for="idComents">Comentarios:</label>
+    		<input type="text" class="form-control" id="idComents" th:field="*{content}" placeholder="Introduzca Comentarios" />
+    	</div>
+        <p><button type="submit" class="btn btn-primary">Crear</button> <button type="reset" class="btn btn-primary">Cancelar</button</p>
     </form>
 </body>
 </html>

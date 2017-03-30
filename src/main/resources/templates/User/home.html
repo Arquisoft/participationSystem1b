@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pagina principal del usuario</title>
+    <meta charset="utf-8">
+</head>
+<body>
+	<h1>Crear Sugerencia</h1>
+    <form action="#" th:action="@{/suggestion}" th:object="${suggestion}" method="post">
+    	<p>Título: <input type="text" th:field="*{suggestion_name}" /></p>
+        <p>Texto:  <input type="text" th:field="*{content}" /></p>
+        <p><input type="submit" value="Crear" /> <input type="reset" value="Cancelar" /></p>
+    </form>
+</body>
+</html>
