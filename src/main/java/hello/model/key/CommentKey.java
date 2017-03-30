@@ -9,6 +9,7 @@ public class CommentKey implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
+
 	Long citizenDB;
 	Long suggestion;
 	
@@ -42,5 +43,16 @@ public class CommentKey implements Serializable{
 		return true;
 	}
 	
-	
+	public Long getCitizenDB() {
+		return citizenDB;
+	}
+	public void setCitizenDB(Long citizenDB) {
+		this.citizenDB = citizenDB;
+	}
+	public Long getSuggestion() {
+		return suggestion;
+	}
+	public void setSuggestion(Long suggestion) {
+		this.suggestion = suggestion;
+	}
 }
