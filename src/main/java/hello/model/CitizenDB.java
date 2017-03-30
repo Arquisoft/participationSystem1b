@@ -58,6 +58,7 @@ public class CitizenDB {
 	 * @param address: direccion del citizen
 	 * @param nationality: naciolidad del citizen
 	 * @param DNI: DNI del citizen
+	 * @param type: Administrador, Politico o ciudadano
 	 */
 	public CitizenDB(String name,String surname,String mail,Date bithday,
 			String address,String nationality,String DNI , String type){
