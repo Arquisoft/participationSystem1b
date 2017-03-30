@@ -75,7 +75,4 @@ public class VoteSuggestion {
 			return false;
 		return true;
 	}
-	
-	
-
 }
