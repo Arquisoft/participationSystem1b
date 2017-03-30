@@ -11,6 +11,8 @@ public class VoteCommentKey implements Serializable{
 	
 	Long comment;
 	Long citizenDB;
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -19,6 +21,8 @@ public class VoteCommentKey implements Serializable{
 		result = prime * result + ((comment == null) ? 0 : comment.hashCode());
 		return result;
 	}
+	
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -41,6 +45,19 @@ public class VoteCommentKey implements Serializable{
 		return true;
 	}
 	
+	public Long getComment() {
+		return comment;
+	}
 	
-
+	public void setComment(Long comment) {
+		this.comment = comment;
+	}
+	
+	public Long getCitizenDB() {
+		return citizenDB;
+	}
+	
+	public void setCitizenDB(Long citizenDB) {
+		this.citizenDB = citizenDB;
+	}
 }

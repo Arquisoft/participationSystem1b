@@ -62,5 +62,24 @@ public class TestCommentKey {
 		assert(this.comment1.hashCode() == copia1.hashCode());
 		assert(this.comment2.hashCode() == copia2.hashCode());
 	}
-	
+
+
+	public CommentKey getComment1() {
+		return comment1;
+	}
+
+
+	public void setComment1(CommentKey comment1) {
+		this.comment1 = comment1;
+	}
+
+
+	public CommentKey getComment2() {
+		return comment2;
+	}
+
+
+	public void setComment2(CommentKey comment2) {
+		this.comment2 = comment2;
+	}
 }
