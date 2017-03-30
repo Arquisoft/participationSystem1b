@@ -38,7 +38,7 @@ public class Suggestion {
 	@OneToMany(mappedBy = "suggestion")
 	private Set<VoteSuggestion> voteSuggestions;
 	
-	 Suggestion() {
+	public Suggestion() {
 	}
 	
 	public Suggestion(String title ,CitizenDB citizenDB){
