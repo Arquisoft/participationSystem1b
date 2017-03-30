@@ -2,7 +2,7 @@ package hello.model.key;
 
 import java.io.Serializable;
 
-public class VoteSuggentionKey  implements Serializable{
+public class VoteSuggestionKey  implements Serializable{
 
 	/**
 	 * 
@@ -27,7 +27,7 @@ public class VoteSuggentionKey  implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		VoteSuggentionKey other = (VoteSuggentionKey) obj;
+		VoteSuggestionKey other = (VoteSuggestionKey) obj;
 		if (citizenDB == null) {
 			if (other.citizenDB != null)
 				return false;

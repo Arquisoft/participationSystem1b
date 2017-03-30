@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import hello.model.Suggestion;
+//import hello.model.Suggestion;
 
 
 
@@ -19,8 +19,8 @@ public class SuggestionController {
 		return "suggestion";
 	}
 	
-	@PostMapping("/suggestion")
-	public String SuggestionSubmit(@ModelAttribute Suggestion suggestion){
-		return "result";
-	}
+//	@PostMapping("/suggestion")
+//	public String SuggestionSubmit(@ModelAttribute Suggestion suggestion){
+//		return "result";
+//	}
 }

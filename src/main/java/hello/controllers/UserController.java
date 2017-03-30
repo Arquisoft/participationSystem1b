@@ -2,7 +2,7 @@ package hello.controllers;
 
 
 import hello.Message;
-import hello.model.CitizenDB;
+//import hello.model.CitizenDB;
 import hello.producers.KafkaProducer;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class UserController {
 	
     @Autowired
     private KafkaProducer kafkaProducer;
-    CitizenDB user;
+ //   CitizenDB user;
 
     //@RequestMapping("/")
     //public String landing(Model model) {
@@ -38,10 +38,10 @@ public class UserController {
     public String getLogin(@RequestParam String login, @RequestParam String password, Model mod){
         //Participant user = participantService.getParticipant(login);
 
-        if(user != null){
-            if(DigestUtils.sha512Hex(password).equals(user.getPassword()))
-                return "user/index";
-        }
+    //    if(user != null){
+//            if(DigestUtils.sha512Hex(password).equals(user.getPassword()))
+//                return "user/index";
+   //     }
         return "login";
     }
 }

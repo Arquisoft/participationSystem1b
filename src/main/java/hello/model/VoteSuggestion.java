@@ -6,12 +6,12 @@ import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import hello.model.key.VoteSuggentionKey;
+import hello.model.key.VoteSuggestionKey;
 
 
 
 @Entity
-@IdClass(VoteSuggentionKey.class)
+@IdClass(VoteSuggestionKey.class)
 @Table(name="VotoSugerencia")
 public class VoteSuggestion {
 	
