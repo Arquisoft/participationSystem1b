@@ -2,7 +2,7 @@ package model;
 
 import org.junit.Test;
 
-import hello.model.key.CommentKey;
+import model.key.CommentKey;
 
 /**
  * Clase para realizar las pruebas

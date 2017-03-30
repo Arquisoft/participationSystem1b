@@ -6,9 +6,9 @@ import java.util.Date;
 
 import org.junit.Test;
 
-import hello.model.CitizenDB;
-import hello.model.Suggestion;
-import hello.model.VoteSuggestion;
+import model.CitizenDB;
+import model.Suggestion;
+import model.VoteSuggestion;
 
 /**
  * 

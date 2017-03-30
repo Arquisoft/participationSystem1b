@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import hello.model.CitizenDB;
+import model.CitizenDB;
 
 /**
  * Clase de test para las pruebas unitarias
