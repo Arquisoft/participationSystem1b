@@ -35,6 +35,8 @@ public class Suggestion {
 	@ManyToOne
 	private CitizenDB citizenDB;
 	
+	private String content;  //contenido de la sugerencia (el cuerpo de la misma...)
+	
 	@OneToMany(mappedBy = "suggestion")
 	private Set<VoteSuggestion> voteSuggestions;
 	
@@ -141,5 +143,13 @@ public class Suggestion {
 
 	public void saveSuggestion(){
 		//bd.insert_suggestion()...
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 }

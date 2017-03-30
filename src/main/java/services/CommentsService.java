@@ -13,7 +13,4 @@ public interface CommentsService {
 	List<Comment> findAll();
 	Comment createComment(Comment comment);
 	void deleteComment(Comment comment);
-	
-	
-
 }
