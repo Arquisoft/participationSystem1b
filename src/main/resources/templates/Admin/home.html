@@ -1,66 +1,125 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Pagina principal del usuario</title>
-    
+<!DOCTYPE html>
+<html lang="en">
+  <head>
     <meta charset="utf-8">
-    
-    <!-- Añadiendo el Bootstrap -->
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <!--Pulling Awesome Font -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <!-- Añadiendo Javascript para que funcione correctamente -->
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <!-- Custom styles for this template -->
-    <link href="../css/userHome.css" rel="stylesheet">
-    
-</head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<body>
+    <title>Página de administrador</title>
 
-	<nav class="navbar navbar-inverse ">
-      <button class="navbar-toggler navbar-toggler-right" 
-      			type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" 
-      			aria-controls="navbarsExampleDefault" aria-expanded="false" 
-      			aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <meta name="description" content="">
 
-      <div class="container-fluid" id="navbarsExampleDefault">
-        <div class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Borrar Sugerencias <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Modificar Sugerencias <span class="sr-only">(current)</span></a>
-          </li>
-        </div>
-      </div>
-    </nav>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href=""../css/style.css" rel="stylesheet">
 
+  </head>
+  <body>
 
-	<h1>Crear Sugerencia</h1>
-    <form action="#" th:action="@{/suggestion}" th:object="${suggestion}" method="post">
-    	<p>Título: <input type="text" th:field="*{suggestion_name}" /></p>
-        <p>Texto:  <input type="text" th:field="*{content}" /></p>
-        <p><input type="submit" value="Crear" /> <input type="reset" value="Cancelar" /></p>
-    </form>
-    
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>    <!-- Bootstrap core JavaScript>
-</body>
+    <div class="container-fluid">
+    <h1>Página de administrador</h1>
+	<div class="row">
+		<div class="col-md-12">
+			<ul class="breadcrumb">
+				<li>
+					<a href="#">Home</a> <span class="divider">/</span>
+				</li>
+				<li>
+					<a href="#">Editar</a> <span class="divider">/</span>
+				</li>
+				<li class="active>
+					<a href="#">Mostrar</a> <span class="divider">/</span>
+				</li>
+			</ul>
+			<p>
+				<strong>Buscar sugerencia:</strong>
+			</p>
+			<form class="form-horizontal" role="form">
+				<div class="form-group">
+					 
+					<label for="inputEmail3" class="col-sm-2 control-label">
+						Fecha
+					</label>
+					<div class="col-sm-10">
+						<select name="fecha">
+						<option value="1/2/2017">1/2/2017</option>
+						<option value="1/2/2017">1/2/2017</option>
+						</select>
+					</div>
+				</div>
+				
+					 
+					<label for="textobusqueda" class="col-sm-2 control-label">
+						Texto a buscar
+					</label>
+					<div class="col-sm-10">
+						<input type="password" class="form-control" id="textobusqueda">
+					</div>
+				
+				</div>
+			</form>
+			<table class="table">
+				<thead>
+					<tr>
+
+						<th>
+							Titulo
+						</th>
+						<th>
+							Contenido
+						</th>
+						<th>
+							Fecha
+						</th>
+						<th>
+							Votos
+						</th>
+						<th>
+							Autor
+						</th>
+						
+												<th>
+							Editar
+						</th>
+						
+												<th>
+							Borrar
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							TB - Monthly
+						</td>
+						<td>
+							01/04/2012
+						</td>
+						<td>
+							Default
+						</td>
+												<td>
+							Default
+						</td>
+					<td>
+						Default
+					</td>
+					<td>
+								<button type="button" class="btn btn-default">Editar</button>
+					</td>
+					<td>
+								<button type="button" class="btn btn-default">Borrar</button>
+					</td>
+					
+					</tr>
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+  </body>
 </html>
