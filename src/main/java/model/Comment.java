@@ -30,7 +30,7 @@ public class Comment {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 	@OneToMany(mappedBy = "comment")
-	private Set<VoteComment> voteComments;
+	private Set<VoteComment> voteComments = new HashSet<VoteComment>();
 	
 	Comment(){
 		

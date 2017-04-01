@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import uo.ri.model.Intervencion;
+
 /**
  * Clase que adapta los ciudadanos creados para su posterior insercion en la
  * base de datos
@@ -37,16 +39,16 @@ public class CitizenDB {
 	@Column(nullable = true)
 	private String type;
 	@OneToMany(mappedBy = "citizenDB")
-	private Set<Comment> comments;
+	private Set<Comment> comments = new HashSet<Comment>();
 	
 	@OneToMany(mappedBy = "citizenDB")
-	private Set<VoteComment> votesComments;
+	private Set<VoteComment> votesComments = new HashSet<VoteComment>();
 	
 	@OneToMany(mappedBy = "citizenDB")
-	private Set<VoteSuggestion> votesSugerencias;
+	private Set<VoteSuggestion> votesSugerencias = new HashSet<VoteSuggestion>();
 	
 	@OneToMany(mappedBy = "citizenDB")
-	private Set<Suggestion> sugerencias;
+	private Set<Suggestion> sugerencias = new HashSet<Suggestion>();
 	
 
 	/**Constructor de la clase CitizenDB
