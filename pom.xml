@@ -2,8 +2,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>es.uniovi.asw</groupId>
-	<artifactId>participationSystem4b</artifactId>
-	<name>participationSystem4b</name>
+	<artifactId>participationSystem1b</artifactId>
+	<name>participationSystem1b</name>
 	<version>0.0.1</version>
 
 	<parent>
