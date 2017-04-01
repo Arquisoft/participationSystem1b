@@ -50,6 +50,13 @@ public class Suggestion {
 		this.suggestion_date = Calendar.getInstance().getTime();
 	}
 
+	public Suggestion(long id,String title ,CitizenDB citizenDB){
+		this.id = id;
+		Association.Sugerir.link(citizenDB, this);
+		this.title = title;
+		this.num_votes = 0;
+		this.suggestion_date = Calendar.getInstance().getTime();
+	}
 
 	public CitizenDB getCitizenDB() {
 		return citizenDB;

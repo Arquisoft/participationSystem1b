@@ -9,13 +9,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -50,10 +48,10 @@ public class MainController {
     public String landing(Model model,HttpSession session) {
     	//crearUsuario();  da un error (Oliver), hay q revisarlo
     	
-    	sugerencias.add(new Suggestion("Sugerencia1",
+    	sugerencias.add(new Suggestion(1,"Sugerencia1",
     			new CitizenDB("nombre", "apellidos", "nombre@gmail.com", Calendar.getInstance().getTime(), "direccion", "nacionalidad", "12345678F", "PARTICIPANT")));
     	
-    	sugerencias.add(new Suggestion("Sugerencia2",
+    	sugerencias.add(new Suggestion(2,"Sugerencia2",
     			new CitizenDB("nombre2", "apellidos", "nombre@gmail.com", Calendar.getInstance().getTime(), "direccion", "nacionalidad", "12345622", "PARTICIPANT")));
     	
     	session.setAttribute("sugerencias", this.sugerencias);
@@ -116,5 +114,33 @@ public class MainController {
     	return "admin/edit";
     }
     
+    @RequestMapping(value="/votaPos")
+    public String votePos(String id_sug,HttpSession session){
+    	//hasta que no funcionen los servicios lo buscaré a pelo en la lista
+    	//de sugerencias que tenemos creada
+    	//Suggestion sug = new SuggestionServiceImpl().findById(Long.parseLong(id_sug));
+    	List<Suggestion> aux = (List<Suggestion>)session.getAttribute("sugerencias");
+    	for(Suggestion sug : aux)
+    		if(sug.getId() == Long.parseLong(id_sug))
+    			sug.setNum_votes(sug.getNum_votes()+1);
+    	
+    	session.setAttribute("sugerencias", sugerencias);
+    	
+    	return "user/home";
+    }
     
+    @RequestMapping(value="/votaNeg")
+    public String voteNeg(String id_sug,HttpSession session){
+    	//hasta que no funcionen los servicios lo buscaré a pelo en la lista
+    	//de sugerencias que tenemos creada
+    	//Suggestion sug = new SuggestionServiceImpl().findById(Long.parseLong(id_sug));
+    	List<Suggestion> aux = (List<Suggestion>)session.getAttribute("sugerencias");
+    	for(Suggestion sug : aux)
+    		if(sug.getId() == Long.parseLong(id_sug))
+    			sug.setNum_votes(sug.getNum_votes()-1);
+    	
+    	session.setAttribute("sugerencias", sugerencias);
+    	
+    	return "user/home";
+    }
 }

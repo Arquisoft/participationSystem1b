@@ -182,12 +182,12 @@ table{border-spacing:0;border-collapse:collapse}td,th{padding:0}
 			                       <td th:text="${sugerencia.citizenDB.name}"></td>
 			                       <td>
 			                           <form action="#" th:action="@{/votaPos}"  method="post">
-			                               <input name="idSug" type="hidden" th:value="${sugerencia.id}"/>
+			                               <input name="id_sug" type="hidden" th:value="${sugerencia.id}"/>
 			                               <button th:type="submit">+</button>
 			                           </form></td>
 			                       <td>
 			                           <form action="#" th:action="@{/votaNeg}"  method="post">
-			                               <input name="idSug" type="hidden" th:value="${sugerencia.id}"/>
+			                               <input name="id_sug" type="hidden" th:value="${sugerencia.id}"/>
 			                               <button th:type="submit">-</button>
 			                           </form></td>
 			        </tr>
