@@ -31,6 +31,11 @@ public class MainController {
         return "login";
     }
     
+    @RequestMapping(value="/login")
+    public String log(Model model){
+    	return "login";
+    }
+    
     private void crearUsuario() {
     	CitizenDB citizenDB = new CitizenDB("nombre", "apellidos", "nombre@gmail.com", Calendar.getInstance().getTime(), "direccion", "nacionalidad", "12345678F", "PARTICIPANT");
     	Services.getCitizenDBService().createCitizenDB(citizenDB);
@@ -67,19 +72,18 @@ public class MainController {
     	//lo que implicaría que hemos pasado por la página de login
     	//sino cualquiera llegaría a este punto escribiendo la ruta en el navegador
     	
-    	
-    	return "user/home";
+    	return "user/suggestion";
     }
     
     
-    @RequestMapping(value="/Admin/home")
+    @RequestMapping(value="/admin/home")
     public String adminHome(Model model){
-    	return "Admin/home";
+    	return "admin/home";
     }
     
     
-    @RequestMapping(value="/Admin/edit")
+    @RequestMapping(value="/admin/edit")
     public String adminEdit(Model model){
-    	return "Admin/edit";
+    	return "admin/edit";
     }
 }

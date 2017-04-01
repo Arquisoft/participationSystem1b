@@ -7,11 +7,11 @@
     
     <!-- Añadiendo el Bootstrap -->
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"></link>
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"></link>
     <!--Pulling Awesome Font -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"></link>
     <!-- Añadiendo Javascript para que funcione correctamente -->
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -22,10 +22,10 @@
 	<h1>Crear Sugerencia</h1>
     <ul class="breadcrumb">
         <li>
-            <a href="../login.html">Cerrar Sesion</a> <span class="divider">/</span>
+            <a href="../login">Cerrar Sesion</a> <span class="divider">/</span>
         </li>
         <li class="active">
-			<a href="home.html">Sugerencias</a> <span class="divider">/</span>
+			<a href="home">Sugerencias</a> <span class="divider">/</span>
         </li>
     </ul>
     <form action="#" th:action="@{/suggestion}" th:object="${suggestion}" method="post">
@@ -37,7 +37,7 @@
     		<label for="idComents">Comentarios:</label>
     		<input type="text" class="form-control" id="idComents" th:field="*{content}" placeholder="Introduzca Comentarios" />
     	</div>
-        <p><button type="submit" class="btn btn-primary">Crear</button> <button type="reset" class="btn btn-primary">Cancelar</button</p>
+        <p><button type="submit" class="btn btn-primary">Crear</button> <button type="reset" class="btn btn-primary">Cancelar</button></p>
     </form>
     </div>
 </body>
