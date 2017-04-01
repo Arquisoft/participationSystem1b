@@ -31,7 +31,10 @@ import services.impl.SuggestionServiceImpl;
 @RequestMapping("*")
 public class MainController {
 	
-
+	//Una vez que tengamos funcionando el login y los servicios de manera correcta
+	//inicializaremos el usuario a null y lo cargaremos en el método de login
+	//buscando al user en la BD
+	//private CitizenDB ciudadabo = null
 	
 	private CitizenDB ciudadano =
 			new CitizenDB("nombre2", "apellidos2", "nombre2@gmail.com", Calendar.getInstance().getTime(), "direccion", "nacionalidad", "71640211H", "PARTICIPANT");
@@ -64,13 +67,23 @@ public class MainController {
     	return "login";
     }
     
+    
+    /**
+     * 
+     * Hay que revisar este método. No crea el usuario, da un error
+     * de NullPointerException a la hora de invocar el servicio,
+     * de hecho habría que revisar las implementaciones de los servicios
+     * ya que las que he probado fallan a la hora de la invocación con
+     * fallos de NullPointerException.
+     */
+    /*
     private void crearUsuario() {
     	CitizenDB citizenDB = new CitizenDB("nombre", "apellidos", "nombre@gmail.com", Calendar.getInstance().getTime(), "direccion", "nacionalidad", "12345678F", "PARTICIPANT");
     	Services.getCitizenDBService().createCitizenDB(citizenDB);
     	CitizenDB citizenDB2 = null;
     	citizenDB2 = Services.getCitizenDBService().getCitizenDB( "nombre@gmail.com");	
 	}
-    
+    */
     
     @RequestMapping(value="/user/home")
     public String logHtml(Model model){
@@ -79,15 +92,20 @@ public class MainController {
     
     
     @RequestMapping(value="/login", method = RequestMethod.POST)
-    public String getLogin(@RequestParam String login, @RequestParam String password, Model mod){
-    CitizenDB user =  new CitizenDBServiceImpl().getByLogin(login);
+    public String getLogin(@RequestParam String userName, @RequestParam String password, Model mod){
+    CitizenDB user =  new CitizenDBServiceImpl().getByLogin(userName);
 
     if(user != null){
-         if(DigestUtils.sha512Hex(password).equals(user.getPassword()))
+         if(DigestUtils.sha512Hex(password).equals(user.getPassword())){
+        	 
+        	 //si string es admin, sino cambiarlo 
         	 if(user.getType().compareTo("admin") == 0)
                return "admin/home";
+        	 
+        	 //en lugar de user quizás sería Participant
          	 if(user.getType().compareTo("user") == 0)
          		 return "user/home";
+         }
        }
         return "login";
     }
@@ -111,6 +129,9 @@ public class MainController {
     
     @RequestMapping(value="/admin/edit")
     public String adminEdit(String id_sug,HttpSession session){
+    	if(id_sug != null){
+    		
+    	}
     	return "admin/edit";
     }
     
@@ -144,7 +165,6 @@ public class MainController {
     	return "user/home";
     }
     
-    
     @RequestMapping(value="/borrar")
     public String borrar(String id_sug,HttpSession session){
     	List<Suggestion> aux = (List<Suggestion>)session.getAttribute("sugerencias");
@@ -154,5 +174,12 @@ public class MainController {
     	
     	session.setAttribute("sugerencias", sugerencias);
     	return "admin/home";
+    }
+    
+    
+    @RequestMapping(value="user/comment")
+    public String comment(String id_sug,HttpSession session){
+    	
+    	return "user/home";
     }
 }
