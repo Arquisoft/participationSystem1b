@@ -110,7 +110,7 @@ public class MainController {
     
     
     @RequestMapping(value="/admin/edit")
-    public String adminEdit(Model model){
+    public String adminEdit(String id_sug,HttpSession session){
     	return "admin/edit";
     }
     
@@ -142,5 +142,17 @@ public class MainController {
     	session.setAttribute("sugerencias", sugerencias);
     	
     	return "user/home";
+    }
+    
+    
+    @RequestMapping(value="/borrar")
+    public String borrar(String id_sug,HttpSession session){
+    	List<Suggestion> aux = (List<Suggestion>)session.getAttribute("sugerencias");
+    	for(Suggestion sug : aux)
+    		if(sug.getId() == Long.parseLong(id_sug))
+    			this.sugerencias.remove(sug);
+    	
+    	session.setAttribute("sugerencias", sugerencias);
+    	return "admin/home";
     }
 }
