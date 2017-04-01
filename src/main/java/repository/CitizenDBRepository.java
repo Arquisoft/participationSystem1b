@@ -8,7 +8,6 @@ import model.CitizenDB;
 
 @Repository
 public interface CitizenDBRepository extends CrudRepository<CitizenDB, Long>{
-
 	CitizenDB findByEmail(String email);
-
+	CitizenDB findByLogin(String login);
 }

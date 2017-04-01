@@ -39,6 +39,9 @@ public class CitizenDBServiceImpl implements CitizenDBService{
 	public CitizenDB createCitizenDB(CitizenDB citizenDB) {
 		return citizenDBRepository.save(citizenDB);
 	}
-
-
+	
+	@Override
+	public CitizenDB getByLogin(String login){
+		return citizenDBRepository.findByLogin(login);
+	}
 }

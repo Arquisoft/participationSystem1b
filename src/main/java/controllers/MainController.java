@@ -22,10 +22,12 @@ import services.impl.CitizenDBServiceImpl;
 public class MainController {
 	
 
+	private CitizenDB citizen;
+	
 	
     @RequestMapping(value="/")
     public String landing(Model model) {
-    	crearUsuario();
+    	//crearUsuario();
         return "login";
     }
     
@@ -36,12 +38,6 @@ public class MainController {
     	citizenDB2 = Services.getCitizenDBService().getCitizenDB( "nombre@gmail.com");
 		
 	}
-
-	@RequestMapping(value="/login", method = RequestMethod.POST)
-    public String land(@RequestBody String parametros, Model model) {
-        return "login";
-    }
-    
     
     
     @RequestMapping(value="/user/home")
@@ -52,11 +48,14 @@ public class MainController {
     
     @RequestMapping(value="/login", method = RequestMethod.POST)
     public String getLogin(@RequestParam String login, @RequestParam String password, Model mod){
-    CitizenDB user =  new CitizenDBServiceImpl().getCitizenDB(login);
+    CitizenDB user =  new CitizenDBServiceImpl().getByLogin(login);
 
     if(user != null){
          if(DigestUtils.sha512Hex(password).equals(user.getPassword()))
-               return "user/home";
+        	 if(user.getType().compareTo("admin") == 0)
+               return "admin/home";
+         	 if(user.getType().compareTo("user") == 0)
+         		 return "user/home";
        }
         return "login";
     }
@@ -64,7 +63,12 @@ public class MainController {
     
     @RequestMapping(value="/user/suggestion")
     public String makeSuggestion(Model model){
-    	return "user/suggestion";
+    	//cuando tengamos log en BD sería interesante comprobar si el usuario (citizen != null)
+    	//lo que implicaría que hemos pasado por la página de login
+    	//sino cualquiera llegaría a este punto escribiendo la ruta en el navegador
+    	
+    	
+    	return "user/home";
     }
     
     
