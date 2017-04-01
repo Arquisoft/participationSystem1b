@@ -15,6 +15,8 @@ public interface SuggestionRepository extends CrudRepository<Suggestion, Long> {
 
 	Suggestion findByTitle(String title);
 
+	Suggestion findById(Long id);
+
 	
 
 }

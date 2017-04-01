@@ -11,9 +11,13 @@ import repository.CommentRepository;
 import services.CommentsService;
 
 public class CommentServiceImpl implements CommentsService{
-	
-	@Autowired
+
 	private CommentRepository commentRepository;
+
+	@Autowired
+	public void setCommentRepository(CommentRepository commentRepository){
+		this.commentRepository = commentRepository;
+	}
 
 	@Override
 	public List<Comment> findBySuggestion(Suggestion suggestion) {

@@ -11,8 +11,13 @@ import services.SuggestionService;
 
 public class SuggestionServiceImpl implements SuggestionService{
 
-	@Autowired
 	private SuggestionRepository suggestionRepository;
+
+	@Autowired
+	public void setSuggestionRepository(SuggestionRepository suggestionRepository){
+		this.suggestionRepository = suggestionRepository;
+	}
+
 	@Override
 	public List<Suggestion> findByCitizenDB(CitizenDB citizenDB) {
 		return suggestionRepository.findByCitizenDB(citizenDB);
@@ -21,6 +26,11 @@ public class SuggestionServiceImpl implements SuggestionService{
 	@Override
 	public Suggestion findByTitle(String title) {
 		return suggestionRepository.findByTitle(title);
+	}
+
+	@Override
+	public Suggestion findById(Long id){
+		return suggestionRepository.findById(id);
 	}
 
 	@Override
