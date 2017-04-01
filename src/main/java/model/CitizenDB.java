@@ -6,8 +6,6 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import uo.ri.model.Intervencion;
-
 /**
  * Clase que adapta los ciudadanos creados para su posterior insercion en la
  * base de datos
