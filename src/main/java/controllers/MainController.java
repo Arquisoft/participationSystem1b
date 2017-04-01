@@ -178,8 +178,17 @@ public class MainController {
     
     
     @RequestMapping(value="user/comment")
-    public String comment(String id_sug,HttpSession session){
+    public String comment(String id_sug,String comment,HttpSession session){
+    	List<Suggestion> aux = (List<Suggestion>)session.getAttribute("sugerencias");
+    	for(int i=0;i < aux.size();i++)
+    		if(aux.get(i).getId() == Long.parseLong(id_sug));
+    			//aux.get(i).addComment(comment);  // igual hay q hacer un método addComment o similar
+    			//en las sugerencias
     	
-    	return "user/home";
+    			
+    			
+    	//una vez que acabamos guardamos en session los cambios en las sugerencias...		
+    	session.setAttribute("sugerencias", sugerencias);
+    	return "user/comment";
     }
 }
