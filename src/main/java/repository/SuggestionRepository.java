@@ -12,11 +12,9 @@ import model.Suggestion;
 public interface SuggestionRepository extends CrudRepository<Suggestion, Long> {
 
 	List<Suggestion> findByCitizenDB(CitizenDB citizenDB);
-
+	List<Suggestion> findAll();
+	
 	Suggestion findByTitle(String title);
 
-	Suggestion findById(Long id);
-
-	
-
+	Suggestion findById(Long id);	
 }
