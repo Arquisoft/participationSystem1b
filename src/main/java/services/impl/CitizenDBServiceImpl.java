@@ -35,5 +35,10 @@ public class CitizenDBServiceImpl implements CitizenDBService{
 		return citizenDBRepository.findByEmail(email);
 	}
 
+	@Override
+	public CitizenDB createCitizenDB(CitizenDB citizenDB) {
+		return citizenDBRepository.save(citizenDB);
+	}
+
 
 }
