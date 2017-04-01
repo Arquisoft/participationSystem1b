@@ -1,6 +1,6 @@
 package model;
 
-
+import java.util.Set;
 
 public class Association {
 	public static class Comentar {
@@ -65,7 +65,8 @@ public static class Sugerir {
 	public static void link(CitizenDB citizenDB, Suggestion suggestion) {
 		suggestion._setCitizenDB(citizenDB);
 		
-		citizenDB._getSugerencias().add(suggestion);
+		Set<Suggestion> lista = citizenDB._getSugerencias();
+		lista.add(suggestion);
 ;
 	}
 

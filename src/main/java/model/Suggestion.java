@@ -26,7 +26,7 @@ public class Suggestion {
 	private Long id;
 	private String title;
 	@OneToMany(mappedBy = "suggestion")
-	private Set<Comment> comments;
+	private Set<Comment> comments  = new HashSet<Comment>();
 	private int num_votes; // quizás estaría bien que la consulta cargara su número de votos de la BD en primera instancia
 						   // y de cara al rendimiento los mantuviera en esta variable (hablarlo)
 	@Temporal(TemporalType.TIMESTAMP)
@@ -38,7 +38,7 @@ public class Suggestion {
 	private String content;  //contenido de la sugerencia (el cuerpo de la misma...)
 	
 	@OneToMany(mappedBy = "suggestion")
-	private Set<VoteSuggestion> voteSuggestions;
+	private Set<VoteSuggestion> voteSuggestions  = new HashSet<VoteSuggestion>();
 	
 	public Suggestion() {
 	}
