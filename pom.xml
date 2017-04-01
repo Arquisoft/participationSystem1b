@@ -13,7 +13,6 @@
 	</parent>
 
 	<dependencies>
-		<!-- Dependencias Kafka todavia no funcionan bien -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-bus-kafka</artifactId>
