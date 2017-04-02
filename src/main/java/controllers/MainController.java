@@ -151,7 +151,6 @@ public class MainController {
     }
     */
     }
-    
    
     @RequestMapping(value="/user/suggestion")
     public String goMakeSuggestion(String id_sug,HttpSession session){
@@ -165,7 +164,6 @@ public class MainController {
     	
     	return "user/suggestion";
     }
-    
     
     @RequestMapping(value="/admin/home")
     public String adminHome(Model model){
@@ -184,67 +182,13 @@ public class MainController {
     	return "admin/edit";
     }
     
-    @RequestMapping(value="/votaPosSuggestion")
-    public String votePosSuggestion(String id_sug,HttpSession session){
-    	//hasta que no funcionen los servicios lo buscaré a pelo en la lista
-    	//de sugerencias que tenemos creada
-    	//Suggestion sug = new SuggestionServiceImpl().findById(Long.parseLong(id_sug));
-    	Set<Suggestion> aux = (Set<Suggestion>) session.getAttribute("sugerencias");
-    	for(Suggestion sug : aux)
-    		if(sug.getId() == Long.parseLong(id_sug))
-    			sug.setNum_votes(sug.getNum_votes()+1);
-    	
-    	session.setAttribute("sugerencias", sugerencias);
-    	
-    	return "user/home";
-    }
-    
-    @RequestMapping(value="/votaNegSuggestion")
-    public String voteNegSuggestion(String id_sug,HttpSession session){
-    	//hasta que no funcionen los servicios lo buscaré a pelo en la lista
-    	//de sugerencias que tenemos creada
-    	//Suggestion sug = new SuggestionServiceImpl().findById(Long.parseLong(id_sug));
-    	Set<Suggestion> aux = (Set<Suggestion>) session.getAttribute("sugerencias");
-    	for(Suggestion sug : aux)
-    		if(sug.getId() == Long.parseLong(id_sug))
-    			if(sug.getNum_votes() > 0)  //sino nos quedaríamos en negativo en los votos
-    				sug.setNum_votes(sug.getNum_votes()-1);
-    	
-    	session.setAttribute("sugerencias", sugerencias);
-    	
-    	return "user/home";
-    }
-    
-    @RequestMapping(value="/votaPosComment")
-    public String votePosComment(String id_con , HttpSession session){
-    	
-    	Set<Comment> aux = (Set<Comment>) session.getAttribute("comments");
-    	for(Comment comment : aux)
-    		if(comment.getId() == Long.parseLong(id_con))  //sino nos quedaríamos en negativo en los votos
-    			comment.setNumero_votos(comment.getNumero_votos()+1);
-    	
-    	session.setAttribute("comments", comments);
-    	
-    	return "user/comment";
-    }
-    
-    @RequestMapping(value="/votaNegComment")
-    public String voteNegComment(String id_con , HttpSession session){
 
-    	Set<Comment> aux = (Set<Comment>) session.getAttribute("comments");
-    	for(Comment comment : aux)
-    		if(comment.getId() == Long.parseLong(id_con))
-    			if(comment.getNumero_votos() > 0)  //sino nos quedaríamos en negativo en los votos
-    				comment.setNumero_votos(comment.getNumero_votos()-1);
-    	
-    	session.setAttribute("comments", comments);
-    	
-    	return "user/comment";
-    }
+    
+   
     
     @RequestMapping(value="/borrar")
     public String borrar(String id_sug,HttpSession session){
-    	List<Suggestion> aux = (List<Suggestion>)session.getAttribute("sugerencias");
+    	Set<Suggestion> aux = (Set<Suggestion>) session.getAttribute("sugerencias");
     	for(Suggestion sug : aux)
     		if(sug.getId() == Long.parseLong(id_sug))
     			this.sugerencias.remove(sug);
@@ -254,46 +198,8 @@ public class MainController {
     }
     
     
-    @RequestMapping(value="user/comment")
-    public String showComments(Long id_sug,String comment,HttpSession session){
-    	//Cuando tengamso Service    
-//    	Suggestion suggestion = suggestionService.findById(id_sug);
-//    	comments = (Set<Comment>) commentsService.findBySuggestion(suggestion);
-//    	session.setAttribute("suggestion", suggestion);
-//    	session.setAttribute("comments", comments);
-    	
-    	
-    	//Esto ahora
-    	Suggestion suggestion1 = null;
-    	CitizenDB citizenDB = (CitizenDB) session.getAttribute("usuario");
-    	for(Suggestion suggestion : sugerencias)
-    		if(suggestion.getId() == id_sug)
-    			suggestion1 = suggestion;
-    			
-    	Comment com= new Comment((long)comments.size()+1,citizenDB, suggestion1, "Comentario de prueba");
-    	comments = suggestion1.getComments();
-    	session.setAttribute("suggestion", suggestion1);
-    	session.setAttribute("comments", comments);
-    	   
-    	return "user/comment";
-    }
-    	@RequestMapping(value="/user/suggestion/makeSuggestion")
-        public String makeSuggestion(@RequestParam String titulo, @RequestParam String contenido, HttpSession session){
-         
-    		CitizenDB user = (CitizenDB) session.getAttribute("usuario");
-    		Suggestion suggestion = new Suggestion((long)user.getSugerencias().size()+1,titulo, user);
-    		
-    		//Esto cuando funcione el service
-    		//suggestionService.createSuggestion(suggestion);
-    		//sugerencias = suggestionService.findAll();
-    		//session.setAttribute("sugerencias", sugerencias);
-    		
-    		// AHORA 
-    		sugerencias = user.getSugerencias();
-    		session.setAttribute("sugerencias", sugerencias);
-    		
-    		return "user/home";
-    }
+    
+  
     	
     	@RequestMapping(value="/user/comment/commentSuggestion")
         public String commentSuggestion( @RequestParam String comentario, HttpSession session){
@@ -326,6 +232,7 @@ public class MainController {
     	}
     	
     	
+
     	@RequestMapping(value="/cerrarSesion")
         public String logOut( HttpSession session){
          
