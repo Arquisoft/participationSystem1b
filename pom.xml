@@ -235,13 +235,6 @@
 					<mapping>
 						<jspx>xml</jspx>
 					</mapping>
-					<executions>
-						<execution>
-							<goals>
-								<goal>check</goal>
-							</goals>
-						</execution>
-					</executions>
 				</configuration>
 			</plugin>
 
