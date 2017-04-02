@@ -11,17 +11,17 @@ import model.key.CommentKey;
  */
 public class TestCommentKey {
 
-	private CommentKey comment1 = new CommentKey();
-	private CommentKey comment2 = new CommentKey();
+	//private CommentKey comment1 = new CommentKey();
+	//private CommentKey comment2 = new CommentKey();
 	
 	public TestCommentKey(){
-		comment1.setCitizenDB((long)1);
+		/*comment1.setCitizenDB((long)1);
 		comment1.setSuggestion((long)2);
 		
 		comment2.setCitizenDB((long)3);
-		comment2.setSuggestion((long)4);
+		comment2.setSuggestion((long)4);*/
 	}
-	
+	/*
 	
 	@Test
 	public void testEquals(){
@@ -81,5 +81,5 @@ public class TestCommentKey {
 
 	public void setComment2(CommentKey comment2) {
 		this.comment2 = comment2;
-	}
+	}*/
 }

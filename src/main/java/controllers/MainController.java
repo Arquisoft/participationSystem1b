@@ -163,7 +163,6 @@ public class MainController {
     	//en la misma session del usuario
     	
     	
-    	
     	return "user/suggestion";
     }
     
@@ -176,13 +175,12 @@ public class MainController {
     
     @RequestMapping(value="/admin/edit")
     public String adminEdit(String id_sug,HttpSession session){
-    	if(id_sug != null){
-    		Set<Suggestion> aux = (Set<Suggestion>) session.getAttribute("sugerencias");
-        	for(Suggestion sug : aux)
-        		if(sug.getId() == Long.parseLong(id_sug))
-        			Censura.censurar(sug);
-        	session.setAttribute("sugerencias", sugerencias);
-    	}
+     	Set<Suggestion> aux = (Set<Suggestion>) session.getAttribute("sugerencias");
+    	for(Suggestion sug : aux)
+    		if(sug.getId() == Long.parseLong(id_sug)){
+    			session.setAttribute("sugerenciaAux", sug);
+    			session.setAttribute("titulo", sug.getTitle());
+    		}
     	return "admin/edit";
     }
     
@@ -317,10 +315,22 @@ public class MainController {
     		return "user/comment";
     		
     }
+    	
+    
+    	@RequestMapping(value="/admin/edit/editSuggestion")
+    	public String editSuggestion(@RequestParam String title,
+    			@RequestParam String contenido,HttpSession session){
+    		
+    		
+    		return "admin/home";
+    	}
+    	
+    	
     	@RequestMapping(value="/cerrarSesion")
         public String logOut( HttpSession session){
          
     		session.setAttribute("usuario", null);
+    		
     		
     		return "/index2";
     	}
