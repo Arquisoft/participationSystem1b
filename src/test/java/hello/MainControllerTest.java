@@ -1,7 +1,10 @@
 package hello;
 
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsString;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.net.URL;
 
@@ -50,6 +53,8 @@ public class MainControllerTest {
 		String userURI = base.toString() + "/login";
 		ResponseEntity<String> response = template.getForEntity(userURI, String.class);
 		UserInfo expected = new UserInfo("pepe",0);
+		assertThat(expected.getName(), containsString("pepe"));
+		assertTrue(expected.getAge().equals(0));
 	}
 
 }
