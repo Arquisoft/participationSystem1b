@@ -39,8 +39,8 @@ public class TestVoteSuggestion {
 			c1 = new CitizenDB("Nombre","Apellidos","mail",date,"address","nacionality","DNI","Admin");
 			c2 = new CitizenDB("Nombre1","Apellidos1","mail1",date1,"address1","nacionality1","DNI1","Participant");
 			
-			s1 = new Suggestion("Titulo",c1);
-			s2 = new Suggestion("Titulo2",c2);
+			//s1 = new Suggestion("Titulo",c1);
+			//s2 = new Suggestion("Titulo2",c2);
 			
 			vs1 = new VoteSuggestion(c1,s1);
 			
@@ -54,7 +54,7 @@ public class TestVoteSuggestion {
 	
 	@Test
 	public void testEquals(){
-		try{
+		/*try{
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy");
 			Date date;
 			Date date1;
@@ -76,7 +76,7 @@ public class TestVoteSuggestion {
 		}
 		catch (ParseException e) {
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
 	

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Censura {
 
-	private static ArrayList<String> palabrasCensuradas;
+	private static ArrayList<String> palabrasCensuradas = new ArrayList<String>();
 	private static Comment comment;
 	
 	public Censura (Comment comment){

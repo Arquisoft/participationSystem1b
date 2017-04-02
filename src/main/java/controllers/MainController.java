@@ -47,6 +47,9 @@ public class MainController {
 	
 	private CitizenDB ciudadano =
 			new CitizenDB("nombre2", "apellidos2", "nombre2@gmail.com", Calendar.getInstance().getTime(), "direccion", "nacionalidad", "71640211H", "PARTICIPANT");
+	private CitizenDB administrador =
+			new CitizenDB("admin", "apellidos2", "admin@gmail.com", Calendar.getInstance().getTime(), "direccion", "nacionalidad", "71640211H", "ADMIN");
+	
 	
 	//Descomentar cuando funciones service
 //	@Autowired
@@ -72,10 +75,11 @@ public class MainController {
     	//crearUsuario();  da un error (Oliver), hay q revisarlo
     	
     	ciudadano.setPassword("password");
+    	administrador.setPassword("password");
     	
     	Suggestion suggestion = new Suggestion((long)1,"Sugerencia1",ciudadano);
     	
-    	 suggestion = new Suggestion((long)2,"Sugerencia2",ciudadano);
+    	suggestion = new Suggestion((long)2,"Sugerencia2",ciudadano);
     	sugerencias = ciudadano.getSugerencias();
     	session.setAttribute("sugerencias", this.sugerencias);
     	
@@ -122,11 +126,16 @@ public class MainController {
     user.setPassword(password);
     
     // Esto ahora para hacer preubas
-    if(!user.getPassword().equals(ciudadano.getPassword()) || !user.getMail().equals(ciudadano.getMail())){
-    	return "error"; //porque quiere decir que no existe este usuario
+
+    if(user.getPassword().equals(ciudadano.getPassword()) && user.getMail().equals(ciudadano.getMail())){
+    	session.setAttribute("usuario", ciudadano);
+    	return "user/home";
     }
-    session.setAttribute("usuario", ciudadano);
-    return "user/home";
+    if(user.getPassword().equals(administrador.getPassword()) && user.getMail().equals(administrador.getMail())){
+    	session.setAttribute("administrador", this.administrador);
+    	return "admin/home";
+    }
+    return "error";
     
     /* Esto cuando este bien lo de servicio  
     if(user == null)
