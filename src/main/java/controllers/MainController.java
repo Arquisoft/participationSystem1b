@@ -48,8 +48,10 @@ public class MainController {
 	private List<Suggestion> sugerencias = new ArrayList<Suggestion>();
 	
     @RequestMapping(value="/")
-    public String landing(Model model,HttpSession session) {
+    public String landing(String userName,String password,HttpSession session) {
     	//crearUsuario();  da un error (Oliver), hay q revisarlo
+    	
+    	ciudadano.setPassword("password");
     	
     	sugerencias.add(new Suggestion(1,"Sugerencia1",
     			new CitizenDB("nombre", "apellidos", "nombre@gmail.com", Calendar.getInstance().getTime(), "direccion", "nacionalidad", "12345678F", "PARTICIPANT")));
@@ -60,12 +62,14 @@ public class MainController {
     	session.setAttribute("sugerencias", this.sugerencias);
     	
         return "login";
-    }
+       }
+   
     
     @RequestMapping(value="/login")
     public String log(Model model){
     	return "login";
     }
+    
     
     
     /**
@@ -93,17 +97,17 @@ public class MainController {
     
     @RequestMapping(value="/login", method = RequestMethod.POST)
     public String getLogin(@RequestParam String userName, @RequestParam String password, Model mod){
-    CitizenDB user =  new CitizenDBServiceImpl().getByLogin(userName);
+    //CitizenDB user =  new CitizenDBServiceImpl().getByLogin(userName);
 
-    if(user != null){
-         if(DigestUtils.sha512Hex(password).equals(user.getPassword())){
+    if(this.ciudadano != null){
+         if(ciudadano.getPassword().compareTo(password)== 0){
         	 
         	 //si string es admin, sino cambiarlo 
-        	 if(user.getType().compareTo("admin") == 0)
+        	 if(ciudadano.getType().compareTo("admin") == 0)
                return "admin/home";
         	 
-        	 //en lugar de user quizás sería Participant
-         	 if(user.getType().compareTo("user") == 0)
+        	 //habría que revisar los tipos
+         	 if(ciudadano.getType().compareTo("PARTICIPANT") == 0)
          		 return "user/home";
          }
        }
@@ -112,7 +116,7 @@ public class MainController {
     
    
     @RequestMapping(value="/user/suggestion")
-    public String makeSuggestion(Model model){
+    public String makeSuggestion(String id_sug){
     	//cuando tengamos log en BD sería interesante comprobar si el usuario (citizen != null)
     	//lo que implicaría que hemos pasado por la página de login
     	//sino cualquiera llegaría a este punto escribiendo la ruta en el navegador
@@ -158,7 +162,8 @@ public class MainController {
     	List<Suggestion> aux = (List<Suggestion>)session.getAttribute("sugerencias");
     	for(Suggestion sug : aux)
     		if(sug.getId() == Long.parseLong(id_sug))
-    			sug.setNum_votes(sug.getNum_votes()-1);
+    			if(sug.getNum_votes() > 0)  //sino nos quedaríamos en negativo en los votos
+    				sug.setNum_votes(sug.getNum_votes()-1);
     	
     	session.setAttribute("sugerencias", sugerencias);
     	
