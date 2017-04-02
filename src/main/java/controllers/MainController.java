@@ -177,8 +177,8 @@ public class MainController {
     	return "admin/edit";
     }
     
-    @RequestMapping(value="/votaPos")
-    public String votePos(String id_sug,HttpSession session){
+    @RequestMapping(value="/votaPosSuggestion")
+    public String votePosSuggestion(String id_sug,HttpSession session){
     	//hasta que no funcionen los servicios lo buscaré a pelo en la lista
     	//de sugerencias que tenemos creada
     	//Suggestion sug = new SuggestionServiceImpl().findById(Long.parseLong(id_sug));
@@ -192,8 +192,8 @@ public class MainController {
     	return "user/home";
     }
     
-    @RequestMapping(value="/votaNeg")
-    public String voteNeg(String id_sug,HttpSession session){
+    @RequestMapping(value="/votaNegSuggestion")
+    public String voteNegSuggestion(String id_sug,HttpSession session){
     	//hasta que no funcionen los servicios lo buscaré a pelo en la lista
     	//de sugerencias que tenemos creada
     	//Suggestion sug = new SuggestionServiceImpl().findById(Long.parseLong(id_sug));
@@ -206,6 +206,33 @@ public class MainController {
     	session.setAttribute("sugerencias", sugerencias);
     	
     	return "user/home";
+    }
+    
+    @RequestMapping(value="/votaPosComment")
+    public String votePosComment(String id_con , HttpSession session){
+    	
+    	Set<Comment> aux = (Set<Comment>) session.getAttribute("comments");
+    	for(Comment comment : aux)
+    		if(comment.getId() == Long.parseLong(id_con))  //sino nos quedaríamos en negativo en los votos
+    			comment.setNumero_votos(comment.getNumero_votos()+1);
+    	
+    	session.setAttribute("comments", comments);
+    	
+    	return "user/comment";
+    }
+    
+    @RequestMapping(value="/votaNegComment")
+    public String voteNegComment(String id_con , HttpSession session){
+
+    	Set<Comment> aux = (Set<Comment>) session.getAttribute("comments");
+    	for(Comment comment : aux)
+    		if(comment.getId() == Long.parseLong(id_con))
+    			if(comment.getNumero_votos() > 0)  //sino nos quedaríamos en negativo en los votos
+    				comment.setNumero_votos(comment.getNumero_votos()-1);
+    	
+    	session.setAttribute("comments", comments);
+    	
+    	return "user/comment";
     }
     
     @RequestMapping(value="/borrar")
@@ -236,8 +263,7 @@ public class MainController {
     		if(suggestion.getId() == id_sug)
     			suggestion1 = suggestion;
     			
-
-    	//Comment com= new Comment(citizenDB, suggestion1);
+    	Comment com= new Comment((long)comments.size()+1,citizenDB, suggestion1, "Comentario de prueba");
     	comments = suggestion1.getComments();
     	session.setAttribute("suggestion", suggestion1);
     	session.setAttribute("comments", comments);
@@ -263,20 +289,30 @@ public class MainController {
     }
     	
     	@RequestMapping(value="/user/comment/commentSuggestion")
-        public String commentSuggestion(@RequestParam String titulo , @RequestParam String comentario, HttpSession session){
+        public String commentSuggestion( @RequestParam String comentario, HttpSession session){
          
     		CitizenDB user = (CitizenDB) session.getAttribute("usuario");
-    		Suggestion suggestion = new Suggestion((long)user.getSugerencias().size()+1,titulo, user);
+    		Suggestion suggestion = (Suggestion) session.getAttribute("suggestion");
+    		Comment comment = new Comment((long)comments.size()+1, user, suggestion, comentario);
     		
     		//Esto cuando funcione el service
-    		//suggestionService.createSuggestion(suggestion);
-    		//sugerencias = suggestionService.findAll();
-    		//session.setAttribute("sugerencias", sugerencias);
+    		//commentsService.createComment(comment);
+    		//comments = (Set<Comment>) commentsService.findBySuggestion(suggestion);
+    		//session.setAttribute("comments", comments);
     		
     		// AHORA 
-    		sugerencias = user.getSugerencias();
-    		session.setAttribute("sugerencias", sugerencias);
+    		comments = suggestion.getComments();
+    		session.setAttribute("suggestion", suggestion);
+    		session.setAttribute("comments", comments);
     		
-    		return "user/home";
+    		return "user/comment";
+    		
     }
+    	@RequestMapping(value="/cerrarSesion")
+        public String logOut( HttpSession session){
+         
+    		session.setAttribute("usuario", null);
+    		
+    		return "/index2";
+    	}
 }

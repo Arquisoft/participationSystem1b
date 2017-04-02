@@ -13,6 +13,10 @@ public class CommentKey implements Serializable{
 	Long citizenDB;
 	Long suggestion;
 	
+	public CommentKey(Long id, Long id2) {
+		this.citizenDB = id2;
+		this.suggestion = id;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

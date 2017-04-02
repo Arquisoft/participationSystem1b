@@ -11,6 +11,7 @@ public interface CommentsService {
 	List<Comment> findBySuggestion(Suggestion suggestion);
 	List<Comment> findByCitizenDB(CitizenDB citizenDB);
 	List<Comment> findAll();
+	Comment fingById(long id);
 	Comment createComment(Comment comment);
 	void deleteComment(Comment comment);
 }

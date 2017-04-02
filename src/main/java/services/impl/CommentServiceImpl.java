@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import model.CitizenDB;
 import model.Comment;
 import model.Suggestion;
+import model.key.CommentKey;
 import repository.CommentRepository;
 import services.CommentsService;
 
@@ -42,6 +43,11 @@ public class CommentServiceImpl implements CommentsService{
 	@Override
 	public void deleteComment(Comment comment) {
 		 commentRepository.delete(comment);
+	}
+
+	@Override
+	public Comment fingById(long id) {
+		return commentRepository.findOne(id);
 	}
 
 }
