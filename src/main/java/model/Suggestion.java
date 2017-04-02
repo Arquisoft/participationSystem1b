@@ -40,20 +40,13 @@ public class Suggestion {
 	@OneToMany(mappedBy = "suggestion")
 	private Set<VoteSuggestion> voteSuggestions  = new HashSet<VoteSuggestion>();
 	
-	public Suggestion() {
+	Suggestion() {
 	}
 	
-	public Suggestion(String title ,CitizenDB citizenDB){
+	public Suggestion(Long id,String title ,CitizenDB citizenDB){
 		Association.Sugerir.link(citizenDB, this);
 		this.title = title;
-		this.num_votes = 0;
-		this.suggestion_date = Calendar.getInstance().getTime();
-	}
-
-	public Suggestion(long id,String title ,CitizenDB citizenDB){
 		this.id = id;
-		Association.Sugerir.link(citizenDB, this);
-		this.title = title;
 		this.num_votes = 0;
 		this.suggestion_date = Calendar.getInstance().getTime();
 	}

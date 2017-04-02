@@ -29,6 +29,8 @@ public class Comment {
 	private Suggestion suggestion;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
+	private String text;
+	private int numero_votos;
 	@OneToMany(mappedBy = "comment")
 	private Set<VoteComment> voteComments = new HashSet<VoteComment>();
 	
@@ -36,13 +38,23 @@ public class Comment {
 		
 	}
 	
-	public Comment(CitizenDB citizenDB , Suggestion suggestion){
+	public Comment(CitizenDB citizenDB , Suggestion suggestion , String text ){
 		Association.Comentar.link(citizenDB, suggestion, this);
 		this.date = Calendar.getInstance().getTime();
+		this.text = text;
+		this.numero_votos = 0;
 	}
 
 	
 	
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
 	public Set<VoteComment> getVoteComments() {
 		return new HashSet<>(voteComments);
 	}

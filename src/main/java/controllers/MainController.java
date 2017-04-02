@@ -5,10 +5,13 @@ package controllers;
 import java.util.ArrayList;
 
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -20,10 +23,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import factory.Services;
 import model.Censura;
 import model.CitizenDB;
+import model.Comment;
 import model.Suggestion;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
+import services.CitizenDBService;
+import services.CommentsService;
 import services.SuggestionService;
 import services.impl.CitizenDBServiceImpl;
 import services.impl.SuggestionServiceImpl;
@@ -42,14 +48,24 @@ public class MainController {
 	private CitizenDB ciudadano =
 			new CitizenDB("nombre2", "apellidos2", "nombre2@gmail.com", Calendar.getInstance().getTime(), "direccion", "nacionalidad", "71640211H", "PARTICIPANT");
 	
-	private SuggestionService suggestionService;
+	//Descomentar cuando funciones service
+//	@Autowired
+//	private SuggestionService suggestionService;
+//	@Autowired
+//	private CitizenDBService citizenDBService;
+//	@Autowired
+//	private CommentsService commentsService;
+//	
+	
+	
 	//aunque lo suyo sería buscar todas las sugerencias desde el servicio de momento
 	//falla, con lo que voy a crear a pelo una lista de sugerencias e insertar en ellas para
 	//ir probando
 	//private List<Suggestion> sugerencias = //new SuggestionServiceImpl().findAll();
 	
 	
-	private List<Suggestion> sugerencias = new ArrayList<Suggestion>();
+	private Set<Suggestion> sugerencias = new HashSet<Suggestion>();
+	private Set<Comment> comments = new HashSet<Comment>();
 	
     @RequestMapping(value="/")
     public String landing(HttpSession session, Model model) {
@@ -57,12 +73,10 @@ public class MainController {
     	
     	ciudadano.setPassword("password");
     	
-    	sugerencias.add(new Suggestion(1,"Sugerencia1",
-    			new CitizenDB("nombre", "apellidos", "nombre@gmail.com", Calendar.getInstance().getTime(), "direccion", "nacionalidad", "12345678F", "PARTICIPANT")));
+    	Suggestion suggestion = new Suggestion((long)1,"Sugerencia1",ciudadano);
     	
-    	sugerencias.add(new Suggestion(2,"Sugerencia2",
-    			new CitizenDB("nombre2", "apellidos", "nombre@gmail.com", Calendar.getInstance().getTime(), "direccion", "nacionalidad", "12345622", "PARTICIPANT")));
-    	
+    	 suggestion = new Suggestion((long)2,"Sugerencia2",ciudadano);
+    	sugerencias = ciudadano.getSugerencias();
     	session.setAttribute("sugerencias", this.sugerencias);
     	
         return "index2";
@@ -108,8 +122,10 @@ public class MainController {
     user.setPassword(password);
     
     // Esto ahora para hacer preubas
-    if(!user.getPassword().equals(ciudadano.getPassword()) || !user.getMail().equals(ciudadano.getMail()))
+    if(!user.getPassword().equals(ciudadano.getPassword()) || !user.getMail().equals(ciudadano.getMail())){
     	return "error"; //porque quiere decir que no existe este usuario
+    }
+    session.setAttribute("usuario", ciudadano);
     return "user/home";
     
     /* Esto cuando este bien lo de servicio  
@@ -125,28 +141,11 @@ public class MainController {
     	return "Admin/home";
     }
     */
-    
-   
-    	//Esto lo que estaba antes
-      /*
-         if(ciudadano.getPassword().compareTo(password)== 0){
-        	 
-        	 //si string es admin, sino cambiarlo 
-        	 if(ciudadano.getType().compareTo("admin") == 0)
-               return "admin/home";
-        	 
-        	 //habría que revisar los tipos
-         	 if(ciudadano.getType().compareTo("PARTICIPANT") == 0)
-         		 return "user/home";
-         }
-       
-        return "index2";
-        */
     }
     
    
     @RequestMapping(value="/user/suggestion")
-    public String makeSuggestion(String id_sug,HttpSession session){
+    public String goMakeSuggestion(String id_sug,HttpSession session){
     	//de nuevo en este método
     	//sería lógico buscar la sugerencia
     	//por id a través de un servicio
@@ -169,7 +168,7 @@ public class MainController {
     @RequestMapping(value="/admin/edit")
     public String adminEdit(String id_sug,HttpSession session){
     	if(id_sug != null){
-    		List<Suggestion> aux = (List<Suggestion>)session.getAttribute("sugerencias");
+    		Set<Suggestion> aux = (Set<Suggestion>) session.getAttribute("sugerencias");
         	for(Suggestion sug : aux)
         		if(sug.getId() == Long.parseLong(id_sug))
         			Censura.censurar(sug);
@@ -183,7 +182,7 @@ public class MainController {
     	//hasta que no funcionen los servicios lo buscaré a pelo en la lista
     	//de sugerencias que tenemos creada
     	//Suggestion sug = new SuggestionServiceImpl().findById(Long.parseLong(id_sug));
-    	List<Suggestion> aux = (List<Suggestion>)session.getAttribute("sugerencias");
+    	Set<Suggestion> aux = (Set<Suggestion>) session.getAttribute("sugerencias");
     	for(Suggestion sug : aux)
     		if(sug.getId() == Long.parseLong(id_sug))
     			sug.setNum_votes(sug.getNum_votes()+1);
@@ -198,7 +197,7 @@ public class MainController {
     	//hasta que no funcionen los servicios lo buscaré a pelo en la lista
     	//de sugerencias que tenemos creada
     	//Suggestion sug = new SuggestionServiceImpl().findById(Long.parseLong(id_sug));
-    	List<Suggestion> aux = (List<Suggestion>)session.getAttribute("sugerencias");
+    	Set<Suggestion> aux = (Set<Suggestion>) session.getAttribute("sugerencias");
     	for(Suggestion sug : aux)
     		if(sug.getId() == Long.parseLong(id_sug))
     			if(sug.getNum_votes() > 0)  //sino nos quedaríamos en negativo en los votos
@@ -222,17 +221,62 @@ public class MainController {
     
     
     @RequestMapping(value="user/comment")
-    public String comment(String id_sug,String comment,HttpSession session){
-    	List<Suggestion> aux = (List<Suggestion>)session.getAttribute("sugerencias");
-    	for(int i=0;i < aux.size();i++)
-    		if(aux.get(i).getId() == Long.parseLong(id_sug));
-    			//aux.get(i).addComment(comment);  // igual hay q hacer un método addComment o similar
-    			//en las sugerencias
+    public String showComments(Long id_sug,String comment,HttpSession session){
+    	//Cuando tengamso Service    
+//    	Suggestion suggestion = suggestionService.findById(id_sug);
+//    	comments = (Set<Comment>) commentsService.findBySuggestion(suggestion);
+//    	session.setAttribute("suggestion", suggestion);
+//    	session.setAttribute("comments", comments);
     	
+    	
+    	//Esto ahora
+    	Suggestion suggestion1 = null;
+    	CitizenDB citizenDB = (CitizenDB) session.getAttribute("usuario");
+    	for(Suggestion suggestion : sugerencias)
+    		if(suggestion.getId() == id_sug)
+    			suggestion1 = suggestion;
     			
-    			
-    	//una vez que acabamos guardamos en session los cambios en las sugerencias...		
-    	session.setAttribute("sugerencias", sugerencias);
+
+    	//Comment com= new Comment(citizenDB, suggestion1);
+    	comments = suggestion1.getComments();
+    	session.setAttribute("suggestion", suggestion1);
+    	session.setAttribute("comments", comments);
+    	   
     	return "user/comment";
+    }
+    	@RequestMapping(value="/user/suggestion/makeSuggestion")
+        public String makeSuggestion(@RequestParam String titulo, @RequestParam String contenido, HttpSession session){
+         
+    		CitizenDB user = (CitizenDB) session.getAttribute("usuario");
+    		Suggestion suggestion = new Suggestion((long)user.getSugerencias().size()+1,titulo, user);
+    		
+    		//Esto cuando funcione el service
+    		//suggestionService.createSuggestion(suggestion);
+    		//sugerencias = suggestionService.findAll();
+    		//session.setAttribute("sugerencias", sugerencias);
+    		
+    		// AHORA 
+    		sugerencias = user.getSugerencias();
+    		session.setAttribute("sugerencias", sugerencias);
+    		
+    		return "user/home";
+    }
+    	
+    	@RequestMapping(value="/user/comment/commentSuggestion")
+        public String commentSuggestion(@RequestParam String titulo , @RequestParam String comentario, HttpSession session){
+         
+    		CitizenDB user = (CitizenDB) session.getAttribute("usuario");
+    		Suggestion suggestion = new Suggestion((long)user.getSugerencias().size()+1,titulo, user);
+    		
+    		//Esto cuando funcione el service
+    		//suggestionService.createSuggestion(suggestion);
+    		//sugerencias = suggestionService.findAll();
+    		//session.setAttribute("sugerencias", sugerencias);
+    		
+    		// AHORA 
+    		sugerencias = user.getSugerencias();
+    		session.setAttribute("sugerencias", sugerencias);
+    		
+    		return "user/home";
     }
 }

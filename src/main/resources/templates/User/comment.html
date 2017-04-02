@@ -104,24 +104,72 @@ table{border-spacing:0;border-collapse:collapse}td,th{padding:0}
 			<h3>
 				Comentar sugerencia:
 			</h3>
-			<form class="form-horizontal" role="form">
+			 <form action="/user/comment/commentSuggestion" th:action="@{/user/comment/commentSuggestion}" method="post">
     <div class="form-group">
       <label for="inputType" class="col-md-2 control-label">Titulo sugerencia</label>
       <div class="col-md-3">
-          <input type="text" class="form-control" id="inputType" placeholder="Type"/>
+          <input name="titulo" id="titulo" type="text" class="form-control"  placeholder="Type"/>
       </div>
     </div>
     <div class="form-group">
       <label for="inputType" class="col-md-2 control-label">Contenido sugerencia</label>
       <div class="col-md-3">
-          <textarea class="form-control" id="inputType" placeholder="Type">Contenido</textarea>
+          <textarea name="comentario" id="comentario" class="form-control" placeholder="Type" >Contenido</textarea>
       </div>
     </div>
-          <p><a href="/user/home" class="btn btn-default" role="button">Guardar</a><button type="reset" class="btn btn-defaulr">Cancelar</button></p>
+          <p><button type="submit" class="btn btn-primary">Guardar</button><button type="reset" class="btn btn-primary">Cancelar</button></p>
 </form>
 		</div>
 	</div>
 </div>
+	<table class="table">
+				<thead>
+					<tr>
+
+						<th>
+							Nombre Usuario
+						</th>
+						<th>
+							Comentario
+						</th>
+						<th>
+							Fecha
+						</th>
+						<th>
+							Votos
+						</th>
+						
+												<th>
+							Votar SI
+						</th>
+						
+												<th>
+							Votar NO
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="comment : ${session.comments}">
+			                       <td>th:text="${comment.citizenDB.name}"> </td>
+			                       <td th:text="${comment.text}">Contenido</td>			                  
+			                       <td th:text="${#dates.format(comment.date, 'dd-MM-yyyy')}"></td>
+			                       <td th:text="${sugerencia.num_votes}">Votos</td>
+			                       <td th:text="${sugerencia.citizenDB.name}"></td>
+			                       <td>
+			                           <form action="#" th:action="@{/votaPos}"  method="post">
+			                               <input name="id_sug" type="hidden" th:value="${sugerencia.id}"/>
+			                               <button th:type="submit">+</button>
+			                           </form></td>
+			                       <td>
+			                           <form action="#" th:action="@{/votaNeg}"  method="post">
+			                               <input name="id_sug" type="hidden" th:value="${sugerencia.id}"/>
+			                               <button th:type="submit">-</button>
+			                           </form></td>
+			        </tr>
+				</tbody>
+			</table>
+
+
 
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
