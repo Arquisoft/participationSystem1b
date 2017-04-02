@@ -23,6 +23,8 @@ import model.CitizenDB;
 import model.Suggestion;
 
 import org.springframework.web.bind.annotation.RequestParam;
+
+import services.SuggestionService;
 import services.impl.CitizenDBServiceImpl;
 import services.impl.SuggestionServiceImpl;
 
@@ -40,6 +42,7 @@ public class MainController {
 	private CitizenDB ciudadano =
 			new CitizenDB("nombre2", "apellidos2", "nombre2@gmail.com", Calendar.getInstance().getTime(), "direccion", "nacionalidad", "71640211H", "PARTICIPANT");
 	
+	private SuggestionService suggestionService;
 	//aunque lo suyo sería buscar todas las sugerencias desde el servicio de momento
 	//falla, con lo que voy a crear a pelo una lista de sugerencias e insertar en ellas para
 	//ir probando
@@ -49,7 +52,7 @@ public class MainController {
 	private List<Suggestion> sugerencias = new ArrayList<Suggestion>();
 	
     @RequestMapping(value="/")
-    public String landing(String userName,String password,HttpSession session) {
+    public String landing(HttpSession session, Model model) {
     	//crearUsuario();  da un error (Oliver), hay q revisarlo
     	
     	ciudadano.setPassword("password");
@@ -62,7 +65,7 @@ public class MainController {
     	
     	session.setAttribute("sugerencias", this.sugerencias);
     	
-        return "index";
+        return "index2";
        }
    
    /* 
@@ -97,10 +100,35 @@ public class MainController {
     
     
     @RequestMapping(value="/login", method = RequestMethod.POST)
-    public String getLogin(@RequestParam String userName, @RequestParam String password, HttpSession session){
-    //CitizenDB user =  new CitizenDBServiceImpl().getByLogin(userName);
-
-    if(this.ciudadano != null){
+    public String getLogin(@RequestParam String email, @RequestParam String password, HttpSession session, Model model){
+    //CitizenDB user = services.getByLogin(email);
+   
+    	//Esto se deberia de quitar cuando funcione el services y se cambiaria por algo parecido a lo de arriba
+    CitizenDB user = new CitizenDB("nombre", "apellidos", email, Calendar.getInstance().getTime(), "direccion", "naciolidad", "12345678D", "PARTICIPANT");
+    user.setPassword(password);
+    
+    // Esto ahora para hacer preubas
+    if(!user.getPassword().equals(ciudadano.getPassword()) || !user.getMail().equals(ciudadano.getMail()))
+    	return "error"; //porque quiere decir que no existe este usuario
+    return "user/home";
+    
+    /* Esto cuando este bien lo de servicio  
+    if(user == null)
+    	return "error"; //porque quiere decir que no existe este usuario
+    session.setAttribute("usuario", user);
+    List<Suggestion> sugerencias = suggestionService.findAll();
+	model.addAttribute("sugerencias", sugerencias);
+    if(user.getType().equals("PARTICIPANT")){
+    	return "user/home";
+    }
+    else if(user.getType().equals("ADMIN")){
+    	return "Admin/home";
+    }
+    */
+    
+   
+    	//Esto lo que estaba antes
+      /*
          if(ciudadano.getPassword().compareTo(password)== 0){
         	 
         	 //si string es admin, sino cambiarlo 
@@ -111,8 +139,9 @@ public class MainController {
          	 if(ciudadano.getType().compareTo("PARTICIPANT") == 0)
          		 return "user/home";
          }
-       }
-        return "login";
+       
+        return "index2";
+        */
     }
     
    

@@ -24,9 +24,11 @@
         <div class="col-md-offset-5 col-md-3">
             <form th:action="@{/login}" method="post" class="form-login" >
                 <h4 class="form-login-head">Welcome back!</h4>
-                <input type="text" id="userName" class="form-control input-sm chat-input" placeholder="username" />
+                <label for="email">Usuario:</label>
+                <input type="text" id="email" name="email" class="form-control input-sm chat-input" placeholder="username" />
                 <br/>
-                <input type="password" id="userPassword" class="form-control input-sm chat-input" placeholder="password" />
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="id" class="form-control input-sm chat-input" placeholder="password" />
                 <br/>
                 <div class="wrapper">
             <span class="group-btn">
