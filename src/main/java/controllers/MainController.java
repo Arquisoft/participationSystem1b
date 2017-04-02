@@ -62,15 +62,15 @@ public class MainController {
     	
     	session.setAttribute("sugerencias", this.sugerencias);
     	
-        return "login";
+        return "index";
        }
    
-    
+   /* 
     @RequestMapping(value="/login")
     public String log(Model model){
     	return "login";
     }
-    
+    */
     
     
     /**
@@ -97,7 +97,7 @@ public class MainController {
     
     
     @RequestMapping(value="/login", method = RequestMethod.POST)
-    public String getLogin(@RequestParam String userName, @RequestParam String password, Model mod){
+    public String getLogin(@RequestParam String userName, @RequestParam String password, HttpSession session){
     //CitizenDB user =  new CitizenDBServiceImpl().getByLogin(userName);
 
     if(this.ciudadano != null){
