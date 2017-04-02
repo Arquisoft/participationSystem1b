@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import factory.Services;
+import model.Censura;
 import model.CitizenDB;
 import model.Suggestion;
 
@@ -116,10 +117,15 @@ public class MainController {
     
    
     @RequestMapping(value="/user/suggestion")
-    public String makeSuggestion(String id_sug){
-    	//cuando tengamos log en BD sería interesante comprobar si el usuario (citizen != null)
-    	//lo que implicaría que hemos pasado por la página de login
-    	//sino cualquiera llegaría a este punto escribiendo la ruta en el navegador
+    public String makeSuggestion(String id_sug,HttpSession session){
+    	//de nuevo en este método
+    	//sería lógico buscar la sugerencia
+    	//por id a través de un servicio
+    	//no obstante a falta de funcionamiento de los mismos iré
+    	//buscando las sugerencias en la lista creada 
+    	//en la misma session del usuario
+    	
+    	
     	
     	return "user/suggestion";
     }
@@ -134,7 +140,11 @@ public class MainController {
     @RequestMapping(value="/admin/edit")
     public String adminEdit(String id_sug,HttpSession session){
     	if(id_sug != null){
-    		
+    		List<Suggestion> aux = (List<Suggestion>)session.getAttribute("sugerencias");
+        	for(Suggestion sug : aux)
+        		if(sug.getId() == Long.parseLong(id_sug))
+        			Censura.censurar(sug);
+        	session.setAttribute("sugerencias", sugerencias);
     	}
     	return "admin/edit";
     }

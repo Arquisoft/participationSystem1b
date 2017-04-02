@@ -28,14 +28,14 @@
 			<a href="home">Sugerencias</a> <span class="divider">/</span>
         </li>
     </ul>
-    <form action="#" th:action="@{/suggestion}" th:object="${suggestion}" method="post">
+    <form action="#" th:action="@{/suggestion}" method="post">
     	<div class="form-group">
     		<label for="idTitulo">Titulo:</label>
-    		<input type="text" class="form-control" id="idTitulo" th:field="*{suggestion_name}" placeholder="Introduzca Titulo" />
+    		<input type="text" class="form-control" id="idTitulo" placeholder="Introduzca Titulo" />
     	</div>
     	<div class="form-group">
-    		<label for="idComents">Comentarios:</label>
-    		<input type="text" class="form-control" id="idComents" th:field="*{content}" placeholder="Introduzca Comentarios" />
+    		<label for="idContent">Contenido:</label>
+    		<input type="text" class="form-control" id="idContent" placeholder="Introduzca Contenido" />
     	</div>
         <p><button type="submit" class="btn btn-primary">Crear</button> <button type="reset" class="btn btn-primary">Cancelar</button></p>
     </form>
