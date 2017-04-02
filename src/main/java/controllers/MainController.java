@@ -29,7 +29,7 @@ import services.impl.SuggestionServiceImpl;
 
 @Scope("session")
 @Controller
-@RequestMapping("*")
+//@RequestMapping("*")
 public class MainController {
 	
 	//Una vez que tengamos funcionando el login y los servicios de manera correcta
