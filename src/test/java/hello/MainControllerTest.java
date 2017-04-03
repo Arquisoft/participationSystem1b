@@ -17,6 +17,9 @@ import java.util.Set;
 import model.*;
 
 import model.key.CommentKey;
+import model.key.VoteCommentKey;
+import model.key.VoteSuggestionKey;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -312,5 +315,5 @@ public class MainControllerTest {
 		assertFalse(ck1.getSuggestion().equals(idSuggestion));
 
 	}
-	
+
 }

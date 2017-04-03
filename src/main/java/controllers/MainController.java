@@ -153,28 +153,17 @@ public class MainController {
 
     if(user.getPassword().equals(ciudadano.getPassword()) && user.getMail().equals(ciudadano.getMail())){
     	session.setAttribute("usuario", ciudadano);
+    	session.setAttribute("sugerencias", sugerencias);
     	return "user/home";
     }
  
     if(user.getPassword().equals(administrador.getPassword()) && user.getMail().equals(administrador.getMail())){
     	session.setAttribute("administrador", this.administrador);
+    	session.setAttribute("sugerencias", sugerencias);
     	return "admin/home";
     }
     return "error";
-    
-    /* Esto cuando este bien lo de servicio  
-    if(user == null)
-    	return "error"; //porque quiere decir que no existe este usuario
-    session.setAttribute("usuario", user);
-    List<Suggestion> sugerencias = suggestionService.findAll();
-	model.addAttribute("sugerencias", sugerencias);
-    if(user.getType().equals("PARTICIPANT")){
-    	return "user/home";
-    }
-    else if(user.getType().equals("ADMIN")){
-    	return "Admin/home";
-    }
-    */
+   
     }
    
     @RequestMapping(value="/user/suggestion")
@@ -221,32 +210,7 @@ public class MainController {
     	session.setAttribute("sugerencias", sugerencias);
     	return "admin/home";
     }
-    
-    
-    
-  
-    	//Ya lo hay en commentController
-//    	@RequestMapping(value="/user/comment/commentSuggestion")
-//        public String commentSuggestion( @RequestParam String comentario, HttpSession session){
-//         
-//    		CitizenDB user = (CitizenDB) session.getAttribute("usuario");
-//    		Suggestion suggestion = (Suggestion) session.getAttribute("suggestion");
-//    		Comment comment = new Comment((long)comments.size()+1, user, suggestion, comentario);
-//    		
-//    		//Esto cuando funcione el service
-//    		//commentsService.createComment(comment);
-//    		//comments = (Set<Comment>) commentsService.findBySuggestion(suggestion);
-//    		//session.setAttribute("comments", comments);
-//    		
-//    		// AHORA 
-//    		comments = suggestion.getComments();
-//    		session.setAttribute("suggestion", suggestion);
-//    		session.setAttribute("comments", comments);
-//    		
-//    		return "user/comment";
-//    		
-//    }
-    	
+       	
     
     	@RequestMapping(value="/admin/edit/editSuggestion")
     	public String editSuggestion(@RequestParam String titulo,

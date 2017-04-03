@@ -15,6 +15,8 @@ import services.SuggestionService;
 import model.CitizenDB;
 import model.Comment;
 import model.Suggestion;
+import model.VoteComment;
+import model.VoteSuggestion;
 
 @Scope("session")
 @Controller
@@ -59,34 +61,72 @@ public class SuggestionController {
   	
   	 	@RequestMapping(value="/votaPosSuggestion")
   	     public String votePosSuggestion(String id_sug,HttpSession session){
-  	     	//hasta que no funcionen los servicios lo buscaré a pelo en la lista
-  	     	//de sugerencias que tenemos creada
-  	     	//Suggestion sug = new SuggestionServiceImpl().findById(Long.parseLong(id_sug));
-  	     	Set<Suggestion> aux = (Set<Suggestion>) session.getAttribute("sugerencias");
-  	     	for(Suggestion sug : aux)
-  	     		if(sug.getId() == Long.parseLong(id_sug))
-  	     			sug.setNum_votes(sug.getNum_votes()+1);
-  	     	
-  	     	session.setAttribute("sugerencias", sugerencias);
-  	     	
-  	     	return "user/home";
-  	     }
+  	 	  	
+  			 //Cuando tengamos service
+  			   //Suggestion suggestion = suggestionService.fingById(Long.parseLong(id_sug));
+  			 	
+  			 
+  			 	//AHORA 
+  			 	Suggestion suggestion = (Suggestion) session.getAttribute("sugerencia");
+  			 	Set<Suggestion> suggestions = (Set<Suggestion>) session.getAttribute("sugerencias");
+  			 	for(Suggestion sug : suggestions)
+  			 		if(sug.getId() == Long.parseLong(id_sug))
+  			 			suggestion = sug;
+  			 
+  			 	boolean existe = false;		 	
+  			 	CitizenDB user = (CitizenDB) session.getAttribute("usuario");
+  			 	for(VoteSuggestion voteSuggestion: user.getVotesSugerencias())
+  			 		if(voteSuggestion.getSuggestion().getId() == Long.parseLong(id_sug))
+  			 			existe = true;
+  				if(!existe){
+  					
+  					VoteSuggestion  voteSuggestion = new VoteSuggestion((long)1,user,suggestion);
+  					Set<Suggestion> aux = (Set<Suggestion>) session.getAttribute("sugerencias");
+  					for(Suggestion suggestion2 : aux)
+  		    		if(suggestion2.getId() == Long.parseLong(id_sug)){ //sino nos quedaríamos en negativo en los votos
+  		    			suggestion2.setNum_votes(suggestion2.getNum_votes()+1);
+  		    			//suggestionService.update(suggestion2);
+  		    		}
+  				}
+  		    	session.setAttribute("sugerencias", suggestions);
+  		    	
+  		    	return "user/home";
+  	 	}
   	     
   	     @RequestMapping(value="/votaNegSuggestion")
   	     public String voteNegSuggestion(String id_sug,HttpSession session){
-  	     	//hasta que no funcionen los servicios lo buscaré a pelo en la lista
-  	     	//de sugerencias que tenemos creada
-  	     	//Suggestion sug = new SuggestionServiceImpl().findById(Long.parseLong(id_sug));
-  	     	Set<Suggestion> aux = (Set<Suggestion>) session.getAttribute("sugerencias");
-  	     	for(Suggestion sug : aux)
-  	     		if(sug.getId() == Long.parseLong(id_sug))
-  	     			if(sug.getNum_votes() > 0)  //sino nos quedaríamos en negativo en los votos
-  	     				sug.setNum_votes(sug.getNum_votes()-1);
-  	     	
-  	     	session.setAttribute("sugerencias", sugerencias);
-  	     	
-  	     	return "user/home";
-  	     }
+  	    	 //Cuando tengamos service
+			   //Suggestion suggestion = suggestionService.fingById(Long.parseLong(id_sug));
+			 	
+			 
+			 	//AHORA 
+			 	Suggestion suggestion = (Suggestion) session.getAttribute("sugerencia");
+			 	Set<Suggestion> suggestions = (Set<Suggestion>) session.getAttribute("sugerencias");
+			 	for(Suggestion sug : suggestions)
+			 		if(sug.getId() == Long.parseLong(id_sug))
+			 			suggestion = sug;
+			 
+			 	boolean existe = false;		 	
+			 	CitizenDB user = (CitizenDB) session.getAttribute("usuario");
+			 	for(VoteSuggestion voteSuggestion: user.getVotesSugerencias())
+			 		if(voteSuggestion.getSuggestion().getId() == Long.parseLong(id_sug))
+			 			existe = true;
+				if(!existe){
+					
+					VoteSuggestion  voteSuggestion = new VoteSuggestion((long)1,user,suggestion);
+					Set<Suggestion> aux = (Set<Suggestion>) session.getAttribute("sugerencias");
+					for(Suggestion suggestion2 : aux)
+		    		if(suggestion2.getId() == Long.parseLong(id_sug)){
+		    			if(suggestion2.getNum_votes()>0){//sino nos quedaríamos en negativo en los votos
+		    				suggestion2.setNum_votes(suggestion2.getNum_votes()-1);
+		    				//suggestionService.update(suggestion2);
+		    			}
+		    		}
+				}
+		    	session.setAttribute("sugerencias", suggestions);
+		    	
+		    	return "user/home";
+	 	}
     
     //De momento no funciona correctamente
 //    @RequestMapping(value="/user/suggestion")

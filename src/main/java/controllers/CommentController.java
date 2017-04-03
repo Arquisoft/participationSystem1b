@@ -41,7 +41,7 @@ public class CommentController {
     public String commentSuggestion( @RequestParam String comentario, HttpSession session){
      
 		CitizenDB user = (CitizenDB) session.getAttribute("usuario");
-		Suggestion suggestion = (Suggestion) session.getAttribute("suggestion");
+		Suggestion suggestion = (Suggestion) session.getAttribute("sugerencia");
 		Comment comment = new Comment((long)comments.size()+1, user, suggestion, comentario);
 		
 		//Esto cuando funcione el service
@@ -51,7 +51,7 @@ public class CommentController {
 		
 		// AHORA 
 		comments = suggestion.getComments();
-		session.setAttribute("suggestion", suggestion);
+		session.setAttribute("sugerencia", suggestion);
 		session.setAttribute("comments", comments);
 		
 		return "user/comment";
@@ -77,7 +77,7 @@ public class CommentController {
     			
     	Comment com= new Comment((long)comments.size()+1,citizenDB, suggestion1, "Comentario de prueba");
     	comments = suggestion1.getComments();
-    	session.setAttribute("suggestion", suggestion1);
+    	session.setAttribute("sugerencia", suggestion1);
     	session.setAttribute("comments", comments);
     	   
     	return "user/comment";
@@ -91,7 +91,7 @@ public class CommentController {
 		 	
 		 
 		 	//AHORA 
-		 	Suggestion suggestion = (Suggestion) session.getAttribute("suggestion");
+		 	Suggestion suggestion = (Suggestion) session.getAttribute("sugerencia");
 		 	Comment comment = null;
 		 	for(Comment con : suggestion.getComments())
 		 		if(con.getId() == Long.parseLong(id_con))
@@ -124,7 +124,7 @@ public class CommentController {
 			 	
 			 
 			 	//AHORA 
-			 	Suggestion suggestion = (Suggestion) session.getAttribute("suggestion");
+			 	Suggestion suggestion = (Suggestion) session.getAttribute("sugerencia");
 			 	Comment comment = null;
 			 	for(Comment con : suggestion.getComments())
 			 		if(con.getId() == Long.parseLong(id_con))
