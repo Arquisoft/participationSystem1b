@@ -5,11 +5,13 @@ import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import services.SuggestionService;
 import model.CitizenDB;
 import model.Comment;
 import model.Suggestion;
@@ -19,14 +21,18 @@ import model.Suggestion;
 public class SuggestionController {
 	
 	//Descomentar cuando funciones service
-//	@Autowired
-//	private SuggestionService suggestionService;
+	@Autowired
+	private SuggestionService suggestionService;
 //	@Autowired
 //	private CitizenDBService citizenDBService;
 //	@Autowired
 //	private CommentsService commentsService;
-//	
 	
+	public void setSuggestionService(SuggestionService suggestionService) {
+		this.suggestionService = suggestionService;
+	}
+
+
 	private Set<Suggestion> sugerencias = new HashSet<Suggestion>();
 	private Set<Comment> comments = new HashSet<Comment>();
 	
@@ -35,7 +41,7 @@ public class SuggestionController {
      
 		CitizenDB user = (CitizenDB) session.getAttribute("usuario");
 		Suggestion suggestion = new Suggestion((long)user.getSugerencias().size()+1,titulo, user);
-		
+		sugerencias.add(suggestion);
 		//Esto cuando funcione el service
 		//suggestionService.createSuggestion(suggestion);
 		//sugerencias = suggestionService.findAll();
@@ -51,7 +57,7 @@ public class SuggestionController {
 }
   	
     @RequestMapping(value="/votaPosSuggestion")
-    public String votePosSuggestion(String id_sug,HttpSession session){
+    public String votePosSuggestion(@RequestParam String id_sug,HttpSession session){
     	//hasta que no funcionen los servicios lo buscaré a pelo en la lista
     	//de sugerencias que tenemos creada
     	//Suggestion sug = new SuggestionServiceImpl().findById(Long.parseLong(id_sug));
@@ -66,7 +72,7 @@ public class SuggestionController {
     }
     
     @RequestMapping(value="/votaNegSuggestion")
-    public String voteNegSuggestion(String id_sug,HttpSession session){
+    public String voteNegSuggestion(@RequestParam String id_sug,HttpSession session){
     	//hasta que no funcionen los servicios lo buscaré a pelo en la lista
     	//de sugerencias que tenemos creada
     	//Suggestion sug = new SuggestionServiceImpl().findById(Long.parseLong(id_sug));
@@ -83,15 +89,18 @@ public class SuggestionController {
     
     
     @RequestMapping(value="/user/suggestion")
-    public String goMakeSuggestion(String id_sug,HttpSession session){
+    public String goMakeSuggestion(@RequestParam String id_sug,HttpSession session){
     	//de nuevo en este método
     	//sería lógico buscar la sugerencia
     	//por id a través de un servicio
     	//no obstante a falta de funcionamiento de los mismos iré
     	//buscando las sugerencias en la lista creada 
     	//en la misma session del usuario
-    	
-    	
+    	Long id = Long.parseLong(id_sug);
+		//Descomentar cuando instanciemos la clase
+//    	Suggestion suggestion = SuggestionService.findById(id);
+		
+//    	session.setAttribute("sugerencia", suggestion);
     	
     	return "user/suggestion";
     }

@@ -2,37 +2,29 @@ package controllers;
 
 
 
-import java.util.ArrayList;
-
 import java.util.Calendar;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.apache.commons.codec.digest.DigestUtils;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-import factory.Services;
-import model.Censura;
 import model.CitizenDB;
 import model.Comment;
 import model.Suggestion;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import services.CitizenDBService;
 import services.CommentsService;
 import services.SuggestionService;
-import services.impl.CitizenDBServiceImpl;
-import services.impl.SuggestionServiceImpl;
+import services.VoteCommentService;
+import services.VoteSuggestionService;
 
 
 @Scope("session")
@@ -58,7 +50,13 @@ public class MainController {
 //	private CitizenDBService citizenDBService;
 //	@Autowired
 //	private CommentsService commentsService;
-//	
+
+	private CitizenDBService citizenService;
+	private CommentsService commentService;
+	private SuggestionService suggestionService;
+	private VoteCommentService vCommentService;
+	private VoteSuggestionService vSuggestionService;
+	
 	
 	
 	//aunque lo suyo sería buscar todas las sugerencias desde el servicio de momento
@@ -70,6 +68,31 @@ public class MainController {
 	private Set<Suggestion> sugerencias = new HashSet<Suggestion>();
 	private Set<Comment> comments = new HashSet<Comment>();
 	
+	@Autowired
+	public void setCommentService(CommentsService commentService) {
+		this.commentService = commentService;
+	}
+
+	@Autowired
+	public void setCitizenService(CitizenDBService citizenService) {
+		this.citizenService = citizenService;
+	}
+
+	@Autowired
+	public void setSuggestionService(SuggestionService suggestionService) {
+		this.suggestionService = suggestionService;
+	}
+
+	@Autowired
+	public void setVoteCommentService(VoteCommentService vCommentService) {
+		this.vCommentService = vCommentService;
+	}
+	
+	@Autowired
+	public void setSystemService(VoteSuggestionService vSuggestionService) {
+		this.vSuggestionService = vSuggestionService;
+	}
+	
     @RequestMapping(value="/")
     public String landing(HttpSession session, Model model) {
     	//crearUsuario();  da un error (Oliver), hay q revisarlo
@@ -78,8 +101,9 @@ public class MainController {
     	administrador.setPassword("password");
     	
     	Suggestion suggestion = new Suggestion((long)1,"Sugerencia1",ciudadano);
-    	
+    	sugerencias.add(suggestion);
     	suggestion = new Suggestion((long)2,"Sugerencia2",ciudadano);
+    	sugerencias.add(suggestion);
     	sugerencias = ciudadano.getSugerencias();
     	session.setAttribute("sugerencias", this.sugerencias);
     	

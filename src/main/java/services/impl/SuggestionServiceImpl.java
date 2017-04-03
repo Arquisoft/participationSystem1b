@@ -30,7 +30,7 @@ public class SuggestionServiceImpl implements SuggestionService{
 
 	@Override
 	public Suggestion findById(Long id){
-		return suggestionRepository.findById(id);
+		return this.suggestionRepository.findOne(id);
 	}
 
 	@Override
