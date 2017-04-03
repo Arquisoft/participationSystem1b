@@ -45,6 +45,7 @@ public class SuggestionController {
 		CitizenDB user = (CitizenDB) session.getAttribute("usuario");
 		sugerencias = (Set<Suggestion>) session.getAttribute("sugerencias");
 		Suggestion suggestion = new Suggestion((long)user.getSugerencias().size()+1,titulo, user);
+		suggestion.setContent(contenido);
 		sugerencias.add(suggestion);
 		//Esto cuando funcione el service
 		//suggestionService.createSuggestion(suggestion);
