@@ -3,11 +3,13 @@ package hello;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.Calendar;
 
 import model.CitizenDB;
@@ -57,12 +59,26 @@ public class MainControllerTest {
 	
 	@Test
 	public void testComment() {
-	    CitizenDB user = new CitizenDB("nombre", "apellidos", "mail@mail.mail", Calendar.getInstance().getTime(), "direccion", "naciolidad", "12345678D", "PARTICIPANT");
+		Comment comNull = new Comment();
+		assertNull(comNull.getId());
+		assertNull(comNull.getCitizenDB());
+		
+		Date fecha = Calendar.getInstance().getTime();
+		
+	    CitizenDB user = new CitizenDB("nombre", "apellidos", "mail@mail.mail", fecha, "direccion", "naciolidad", "12345678D", "PARTICIPANT");
 		Suggestion sug = new Suggestion((long) 12, "Sugerencia de prueba", user);
 
 	    Comment comment = new Comment((long)123, user, sug, "testeando");
+	    Comment comment2 = new Comment((long)321, user, sug, "testeando");
+
 		assertTrue(comment.getId().equals((long) 123));
 		assertTrue(comment.getCitizenDB().equals(user));
+		comment.setNumero_votos(2);
+		assertEquals(comment.getNumero_votos(), 2);
+		comment.setText("Texto de prueba");
+		assertEquals(comment.getText(), "Texto de prueba");		
+		assertFalse(comment.equals(comment2));
+		
 	}
 	
 	@Test
