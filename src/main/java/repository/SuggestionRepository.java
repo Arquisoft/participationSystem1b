@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import model.CitizenDB;
 import model.Suggestion;
 
-@Repository
+@Repository("suggestionRepository")
 public interface SuggestionRepository extends JpaRepository<Suggestion, Long> {
 
 	List<Suggestion> findByCitizenDB(CitizenDB citizenDB);

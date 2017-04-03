@@ -3,12 +3,14 @@ package services.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import model.CitizenDB;
 import model.Suggestion;
 import repository.SuggestionRepository;
 import services.SuggestionService;
 
+@Service
 public class SuggestionServiceImpl implements SuggestionService{
 
 	private SuggestionRepository suggestionRepository;

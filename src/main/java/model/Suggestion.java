@@ -40,7 +40,7 @@ public class Suggestion {
 	@OneToMany(mappedBy = "suggestion")
 	private Set<VoteSuggestion> voteSuggestions  = new HashSet<VoteSuggestion>();
 	
-	Suggestion() {
+	public Suggestion() {
 	}
 	
 	public Suggestion(Long id,String title ,CitizenDB citizenDB){

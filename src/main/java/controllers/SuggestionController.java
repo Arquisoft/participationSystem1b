@@ -36,6 +36,7 @@ public class SuggestionController {
 	private Set<Suggestion> sugerencias = new HashSet<Suggestion>();
 	private Set<Comment> comments = new HashSet<Comment>();
 	
+	
   	@RequestMapping(value="/user/suggestion/makeSuggestion")
     public String makeSuggestion(@RequestParam String titulo, @RequestParam String contenido, HttpSession session){
      
@@ -97,10 +98,11 @@ public class SuggestionController {
     	//buscando las sugerencias en la lista creada 
     	//en la misma session del usuario
     	Long id = Long.parseLong(id_sug);
-		//Descomentar cuando instanciemos la clase
-//    	Suggestion suggestion = SuggestionService.findById(id);
+		//Descomentar cuando solucionemos el error
+//    	Suggestion suggestion = new Suggestion();
+//    	suggestion = SuggestionService.findById(id);
 		
-//    	session.setAttribute("sugerencia", suggestion);
+    	session.setAttribute("sugerencia", suggestion);
     	
     	return "user/suggestion";
     }
