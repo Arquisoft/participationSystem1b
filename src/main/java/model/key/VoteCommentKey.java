@@ -11,8 +11,12 @@ public class VoteCommentKey implements Serializable{
 	
 	Long comment;
 	Long citizenDB;
-	
-	
+
+	public VoteCommentKey(Long id, Long id2) {
+		this.citizenDB = id2;
+		this.comment = id;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
