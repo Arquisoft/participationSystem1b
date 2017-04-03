@@ -55,7 +55,7 @@ public class MainControllerTest {
 		assertThat(response.getBody(), containsString("Usuario"));
 		assertThat(response.getBody(), containsString("Contraseña"));
 	}
-	
+
 	@Test
 	public void testComment() {
 		long idSug1 = 12;
@@ -310,6 +310,62 @@ public class MainControllerTest {
 		assertFalse(ck1.getSuggestion().equals(idSuggestion));
 
 		assertNotEquals(ck1.hashCode(), ck2.hashCode());
+		assertEquals(ck3.hashCode(), ck3.hashCode());
+
+	}
+
+	@Test
+	public void testVoteCommentKey(){
+		long idUser = 1;
+		long idComment = 12;
+		long idUser2 = 2;
+		long idComment2 = 21;
+
+		VoteCommentKey ck1 = new VoteCommentKey(idComment, idUser);
+		VoteCommentKey ck2 = new VoteCommentKey(idComment, idUser2);
+		VoteCommentKey ck3 = new VoteCommentKey(idComment2, idUser);
+		VoteCommentKey ck4 = new VoteCommentKey(idComment2, idUser2);
+
+		assertFalse(ck1.equals(ck2));
+		assertFalse(ck1.equals(ck3));
+		assertFalse(ck1.equals(ck4));
+		assertFalse(ck2.equals(ck3));
+		assertFalse(ck2.equals(ck4));
+		assertFalse(ck3.equals(ck4));
+
+		assertTrue(ck1.getCitizenDB().equals(idUser));
+		ck1.setCitizenDB(idUser2);
+		assertFalse(ck1.getCitizenDB().equals(idUser));
+		assertTrue(ck1.getComment().equals(idComment));
+		ck1.setComment(idComment2);
+		assertFalse(ck1.getComment().equals(idComment));
+
+		assertNotEquals(ck1.hashCode(), ck2.hashCode());
+		assertEquals(ck3.hashCode(), ck3.hashCode());
+
+	}
+
+	@Test
+	public void testVoteSuggestionKey(){
+		long idUser = 1;
+		long idSuggestion = 12;
+		long idUser2 = 2;
+		long idSuggestion2 = 21;
+
+		VoteSuggestionKey vsk1 = new VoteSuggestionKey(idSuggestion, idUser);
+		VoteSuggestionKey vsk2 = new VoteSuggestionKey(idSuggestion, idUser2);
+		VoteSuggestionKey vsk3 = new VoteSuggestionKey(idSuggestion2, idUser);
+		VoteSuggestionKey vsk4 = new VoteSuggestionKey(idSuggestion2, idUser2);
+
+		assertFalse(vsk1.equals(vsk2));
+		assertFalse(vsk1.equals(vsk3));
+		assertFalse(vsk1.equals(vsk4));
+		assertFalse(vsk2.equals(vsk3));
+		assertFalse(vsk2.equals(vsk4));
+		assertFalse(vsk3.equals(vsk4));
+
+		assertNotEquals(vsk1.hashCode(), vsk2.hashCode());
+		assertEquals(vsk3.hashCode(), vsk3.hashCode());
 
 	}
 
