@@ -68,30 +68,30 @@ public class MainController {
 	private Set<Suggestion> sugerencias = new HashSet<Suggestion>();
 	private Set<Comment> comments = new HashSet<Comment>();
 	
-	@Autowired
-	public void setCommentService(CommentsService commentService) {
-		this.commentService = commentService;
-	}
-
-	@Autowired
-	public void setCitizenService(CitizenDBService citizenService) {
-		this.citizenService = citizenService;
-	}
-
-	@Autowired
-	public void setSuggestionService(SuggestionService suggestionService) {
-		this.suggestionService = suggestionService;
-	}
-
-	@Autowired
-	public void setVoteCommentService(VoteCommentService vCommentService) {
-		this.vCommentService = vCommentService;
-	}
-	
-	@Autowired
-	public void setSystemService(VoteSuggestionService vSuggestionService) {
-		this.vSuggestionService = vSuggestionService;
-	}
+//	@Autowired
+//	public void setCommentService(CommentsService commentService) {
+//		this.commentService = commentService;
+//	}
+//
+//	@Autowired
+//	public void setCitizenService(CitizenDBService citizenService) {
+//		this.citizenService = citizenService;
+//	}
+//
+//	@Autowired
+//	public void setSuggestionService(SuggestionService suggestionService) {
+//		this.suggestionService = suggestionService;
+//	}
+//
+//	@Autowired
+//	public void setVoteCommentService(VoteCommentService vCommentService) {
+//		this.vCommentService = vCommentService;
+//	}
+//	
+//	@Autowired
+//	public void setSystemService(VoteSuggestionService vSuggestionService) {
+//		this.vSuggestionService = vSuggestionService;
+//	}
 	
     @RequestMapping(value="/")
     public String landing(HttpSession session, Model model) {
