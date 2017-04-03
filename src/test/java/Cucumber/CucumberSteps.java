@@ -25,17 +25,17 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = Application.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class LoginAdminSteps {
+public class CucumberSteps {
 
 	private static FirefoxDriver driver;
 	
 	public static void setUp() {
 		FirefoxBinary ffBinary;
-        if (SystemUtils.IS_OS_WINDOWS) {
-            ffBinary = new FirefoxBinary(new File("FirefoxWindows\\FirefoxPortable.exe"));
-        } else {
+//        if (SystemUtils.IS_OS_WINDOWS) {
+//            ffBinary = new FirefoxBinary(new File("FirefoxWindows\\FirefoxPortable.exe"));
+//        } else {
             ffBinary = new FirefoxBinary();
-        }
+//        }
         FirefoxProfile firefoxProfile = new FirefoxProfile();
         driver = new FirefoxDriver(ffBinary, firefoxProfile);
 		
@@ -55,7 +55,7 @@ public class LoginAdminSteps {
         }
     }
 	
-	@Given("^the user navigates to \"([^\"]*)\"$")
+	@Given("^the admin navigates to \"([^\"]*)\"$")
 	public void theUserNavigatesTo(String url) throws Throwable {
 		driver.get(url);
 	}
@@ -76,7 +76,9 @@ public class LoginAdminSteps {
 
 	@Then("^the user successfully logs in$")
 	public void theUserSuccessfullyLogsIn() throws Throwable {
-		assertTrue(driver.getCurrentUrl().contains("/User/home"));
+		assertTrue(driver.getCurrentUrl().contains("/Admin/home"));
 	}
+	
+	
 
 }
