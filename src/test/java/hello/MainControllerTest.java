@@ -15,6 +15,7 @@ import java.util.Calendar;
 import model.CitizenDB;
 import model.Comment;
 import model.Suggestion;
+import model.VoteComment;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -78,6 +79,7 @@ public class MainControllerTest {
 		comment.setText("Texto de prueba");
 		assertEquals(comment.getText(), "Texto de prueba");		
 		assertFalse(comment.equals(comment2));
+		assertTrue(comment2.equals(comment2));
 		
 	}
 	
@@ -85,12 +87,17 @@ public class MainControllerTest {
 	public void testSuggestion() {
 		CitizenDB user = new CitizenDB("nombre", "apellidos", "mail@mail.mail", Calendar.getInstance().getTime(), "direccion", "naciolidad", "12345678D", "PARTICIPANT");
 		Suggestion sug = new Suggestion((long) 12, "Sugerencia de prueba", user);
+		Suggestion sug2 = new Suggestion((long) 21, "Sugerencia de prueba2", user);
+
 		
 		assertTrue(sug.getId().equals((long) 12));
 		sug.setNum_votes(3);
 		assertTrue(sug.getNum_votes() == 3);
 		assertTrue(sug.getCitizenDB().equals(user));
 		assertTrue(sug.getTitle().equals("Sugerencia de prueba"));
+		
+		assertFalse(sug.equals(sug2));
+		assertTrue(sug2.equals(sug2));
 	}
 	
 	@Test
@@ -105,5 +112,30 @@ public class MainControllerTest {
 		assertTrue(user2.getType().equals("PARTICIPANT"));
 	}
 
+	@Test
+	public void testVoteComment() {
+		VoteComment vComNull = new VoteComment();
+		assertNull(vComNull.getComment());
+		assertNull(vComNull.getCitizenDB());
+		
+		Date fecha = Calendar.getInstance().getTime();
+		
+	    CitizenDB user = new CitizenDB("nombre", "apellidos", "mail@mail.mail", fecha, "direccion", "naciolidad", "12345678D", "PARTICIPANT");
+	    CitizenDB user2 = new CitizenDB("nombre2", "apellidos2", "mail2@mail.mail", fecha, "direccion2", "naciolidad2", "12345678E", "PARTICIPANT");
+	    Suggestion sug = new Suggestion((long) 12, "Sugerencia de prueba", user);
+
+	    Comment comment = new Comment((long)123, user, sug, "testeando");
+	    Comment comment2 = new Comment((long)321, user, sug, "testeando");
+	    
+	    VoteComment vcom = new VoteComment(comment, user);
+	    VoteComment vcom2 = new VoteComment(comment2, user2);
+
+		assertTrue(vcom.getComment().getId().equals((long) 123));
+		assertTrue(vcom.getComment().getCitizenDB().equals(user));
+		assertTrue(vcom.getCitizenDB().equals(user));
+		assertFalse(vcom.equals(vcom2));
+		assertTrue(vcom2.equals(vcom2));
+		
+	}
 	
 }

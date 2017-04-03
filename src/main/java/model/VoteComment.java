@@ -20,7 +20,7 @@ public class VoteComment {
 	@ManyToOne
 	private CitizenDB citizenDB;
 	
-	VoteComment() {
+	public VoteComment() {
 	}
 	
 	public VoteComment(Comment comment , CitizenDB citizenDB){
