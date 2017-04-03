@@ -2,11 +2,7 @@ package hello;
 
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsString;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.net.URL;
 import java.util.Date;
@@ -17,6 +13,8 @@ import java.util.Set;
 import model.*;
 
 import model.key.CommentKey;
+import model.key.VoteCommentKey;
+import model.key.VoteSuggestionKey;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -311,6 +309,10 @@ public class MainControllerTest {
 		ck1.setSuggestion(idSuggestion2);
 		assertFalse(ck1.getSuggestion().equals(idSuggestion));
 
+		assertNotEquals(ck1.hashCode(), ck2.hashCode());
+
 	}
+
+
 	
 }
