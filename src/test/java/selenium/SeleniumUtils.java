@@ -80,6 +80,12 @@ public class SeleniumUtils {
 			return false;
 		}
 	}
+	
+	public void comprobarTexto(String id, String texto) {
+		WebElement element = driver.findElement(By.id(id));
+		assertNotNull(element);
+		assertEquals(texto, element.getText());
+	}
 
 	public WebDriver getDriver() {
 		return driver;
