@@ -95,7 +95,7 @@ table{border-spacing:0;border-collapse:collapse}td,th{padding:0}
 		<div class="col-md-12">
 			<ul class="breadcrumb">
 				<li>
-					<a href="../index2">Cerrar Sesion</a> <span class="divider">/</span>
+					<a href="/cerrarSesion">Cerrar Sesion</a> <span class="divider">/</span>
 				</li>
 				<li>
 					<a href="home">Sugerencias</a> <span class="divider">/</span>
@@ -104,25 +104,40 @@ table{border-spacing:0;border-collapse:collapse}td,th{padding:0}
 			<h3>
 				Editar sugerencia:
 			</h3>
-			<form class="form-horizontal" role="form">
-    <div class="form-group">
-      <label for="inputType" class="col-md-2 control-label">Titulo sugerencia</label>
-      <div class="col-md-3">
-          <input type="text" class="form-control" id="inputType" placeholder="Type"/>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="inputType" class="col-md-2 control-label">Contenido sugerencia</label>
-      <div class="col-md-3">
-          <textarea class="form-control" id="inputType" placeholder="Type">Contenido</textarea>
-      </div>
-    </div>
+	<form action="/admin/edit/editSuggestion" class="form-horizontal" role="form">    	
+    	<table class="table">
+    		<thead>
+    			<tr>
+    				<th>
+    					<strong>
+    						ID
+    					</strong>
+    				</th>
+    				<th>
+    					<strong>
+    						Titulo
+    					</strong>
+    				</th>
+    				<th>
+    					<strong>
+    						Contenido
+    					</strong>
+    				</th>
+    			</tr>
+    		</thead>
+    		<tbody>
+    			<tr th:each="sug : ${session.sugerenciaAux}">
+    							   <td th:text="${sug.id}"></td>	
+			                       <td th:text="${sug.title}"><input type="text"  class="form-control" id="inputType" placeholder="Type"/></td>
+			                       <td th:text="${sug.content}"><textarea class="form-control" id="inputType" placeholder="Type"/></td>			                  
+				</tr>
+			</tbody>
+		 </table>
           <p><button type="submit" class="btn btn-primary">Guardar</button> <button type="reset" class="btn btn-primary">Cancelar</button></p>
-</form>
+	</form>
 		</div>
 	</div>
 </div>
-
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/scripts.js"></script>
