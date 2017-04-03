@@ -196,7 +196,7 @@ public class Selenium {
 	}
 
 	/**
-	 * Votar "No" comentario
+	 * Comentar sugerencia
 	 */
 	@Test
 	public void prueba09() {
@@ -281,7 +281,7 @@ public class Selenium {
 	
 
 	/**
-	 * Cerrar sesion desde administrador
+	 * Borrar sugerencia
 	 *
 	 * @throws Exception
 	 */
@@ -299,5 +299,26 @@ public class Selenium {
 		SeleniumUtils.textoNoPresentePagina(driver, "Sugerencia2");
 
 	}
+	
+	/**
+	 * Editar sugerencia
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void prueba14() throws Exception {
+		driver.get(baseUrl + "/");
+		SeleniumUtils.EsperaCargaPagina(driver, "id", "login", 25);
+		driver.findElement(By.id("email")).clear();
+		driver.findElement(By.id("email")).sendKeys("admin@gmail.com");
+		driver.findElement(By.id("password")).clear();
+		driver.findElement(By.id("password")).sendKeys("password");
+		driver.findElement(By.id("login")).click();
+		driver.findElement(By.id("botonEditar")).click();
+		driver.findElement(By.id("titulo")).clear();
+		driver.findElement(By.id("titulo")).sendKeys("Sugerencia 4");
+
+	}
+	
 
 }
