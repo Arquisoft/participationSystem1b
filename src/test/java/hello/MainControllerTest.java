@@ -3,10 +3,16 @@ package hello;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.net.URL;
+import java.util.Calendar;
+
+import model.CitizenDB;
+import model.Comment;
+import model.Suggestion;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -50,12 +56,38 @@ public class MainControllerTest {
 	}
 	
 	@Test
-	public void getUser() throws Exception {
-		String userURI = base.toString() + "/index";
-		ResponseEntity<String> response = template.getForEntity(userURI, String.class);
-		UserInfo expected = new UserInfo("pepe",0);
-		assertThat(expected.getName(), containsString("pepe"));
-		assertTrue(expected.getAge().equals(0));
+	public void testComment() {
+	    CitizenDB user = new CitizenDB("nombre", "apellidos", "mail@mail.mail", Calendar.getInstance().getTime(), "direccion", "naciolidad", "12345678D", "PARTICIPANT");
+		Suggestion sug = new Suggestion((long) 12, "Sugerencia de prueba", user);
+
+	    Comment comment = new Comment((long)123, user, sug, "testeando");
+		assertTrue(comment.getId().equals((long) 123));
+		assertTrue(comment.getCitizenDB().equals(user));
+	}
+	
+	@Test
+	public void testSuggestion() {
+		CitizenDB user = new CitizenDB("nombre", "apellidos", "mail@mail.mail", Calendar.getInstance().getTime(), "direccion", "naciolidad", "12345678D", "PARTICIPANT");
+		Suggestion sug = new Suggestion((long) 12, "Sugerencia de prueba", user);
+		
+		assertTrue(sug.getId().equals((long) 12));
+		sug.setNum_votes(3);
+		assertTrue(sug.getNum_votes() == 3);
+		assertTrue(sug.getCitizenDB().equals(user));
+		assertTrue(sug.getTitle().equals("Sugerencia de prueba"));
+	}
+	
+	@Test
+	public void testUser() {
+		CitizenDB user1 = new CitizenDB();
+		assertNull(user1.getName());
+		assertNull(user1.getId());
+		
+		CitizenDB user2 = new CitizenDB("nombre", "apellidos", "mail@mail.mail", Calendar.getInstance().getTime(), "direccion", "naciolidad", "12345678D", "PARTICIPANT");
+		assertTrue(user2.getName().equals("nombre"));
+		assertTrue(user2.getDNI().equals("12345678D"));
+		assertTrue(user2.getType().equals("PARTICIPANT"));
 	}
 
+	
 }

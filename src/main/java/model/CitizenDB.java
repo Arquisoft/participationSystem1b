@@ -199,7 +199,7 @@ public class CitizenDB {
 	
 	/**Constructor sin parametros
 	*/
-	CitizenDB(){
+	public CitizenDB(){
 		
 	}
 	

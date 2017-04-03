@@ -37,7 +37,7 @@ public class Comment {
 	@OneToMany(mappedBy = "comment")
 	private Set<VoteComment> voteComments = new HashSet<VoteComment>();
 	
-	Comment(){
+	public Comment(){
 		
 	}
 	
