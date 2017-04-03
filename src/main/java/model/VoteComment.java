@@ -1,6 +1,8 @@
 package model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
@@ -14,17 +16,33 @@ import model.key.VoteCommentKey;
 public class VoteComment {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	@ManyToOne
 	private Comment comment;
-	@Id
 	@ManyToOne
 	private CitizenDB citizenDB;
 	
 	public VoteComment() {
 	}
 	
+	public VoteComment(long id ,Comment comment , CitizenDB citizenDB){
+		Association.votarComentario.link(citizenDB, comment, this);
+		this.id = id;
+	}
+	
 	public VoteComment(Comment comment , CitizenDB citizenDB){
 		Association.votarComentario.link(citizenDB, comment, this);
+	}
+	
+	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Comment getComment() {

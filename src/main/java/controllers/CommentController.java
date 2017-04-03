@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import model.CitizenDB;
 import model.Comment;
 import model.Suggestion;
+import model.VoteComment;
+import services.CitizenDBService;
+import services.CommentsService;
+import services.SuggestionService;
+import services.VoteCommentService;
 
 @Scope("session")
 @Controller
@@ -24,8 +30,9 @@ public class CommentController {
 //	@Autowired
 //	private CitizenDBService citizenDBService;
 //	@Autowired
-//	private CommentsService commentsService;
-//	
+//	private CommentsService commentsService;	
+//	@Autowired
+//	private VoteCommentService voteCommentService;
 	
 	private Set<Suggestion> sugerencias = new HashSet<Suggestion>();
 	private Set<Comment> comments = new HashSet<Comment>();
@@ -79,13 +86,32 @@ public class CommentController {
 	 @RequestMapping(value="/votaPosComment")
 	    public String votePosComment(String id_con , HttpSession session){
 	    	
-	    	Set<Comment> aux = (Set<Comment>) session.getAttribute("comments");
-	    	for(Comment comment : aux)
-	    		if(comment.getId() == Long.parseLong(id_con)){ //sino nos quedaríamos en negativo en los votos
-	    			comment.setNumero_votos(comment.getNumero_votos()+1);
+		 //Cuando tengamos service
+		   //Comment commet = commentsService.fingById(Long.parseLong(id_con));
+		 	
+		 
+		 	//AHORA 
+		 	Suggestion suggestion = (Suggestion) session.getAttribute("suggestion");
+		 	Comment comment = null;
+		 	for(Comment con : suggestion.getComments())
+		 		if(con.getId() == Long.parseLong(id_con))
+		 			comment = con;
+		 
+		 	boolean existe = false;		 	
+		 	CitizenDB user = (CitizenDB) session.getAttribute("usuario");
+		 	for(VoteComment comment1: user.getVotesComments())
+		 		if(comment1.getComment().getId() == Long.parseLong(id_con))
+		 			existe = true;
+			if(!existe){
+				
+				VoteComment  voteComment = new VoteComment((long)1,comment,user);
+				Set<Comment> aux = (Set<Comment>) session.getAttribute("comments");
+				for(Comment comment1 : aux)
+	    		if(comment1.getId() == Long.parseLong(id_con)){ //sino nos quedaríamos en negativo en los votos
+	    			comment1.setNumero_votos(comment1.getNumero_votos()+1);
 	    			//commentService.update(comment);
 	    		}
-	    	
+			}
 	    	session.setAttribute("comments", comments);
 	    	
 	    	return "user/comment";
@@ -93,18 +119,36 @@ public class CommentController {
 	    
 	    @RequestMapping(value="/votaNegComment")
 	    public String voteNegComment(String id_con , HttpSession session){
-
-	    	Set<Comment> aux = (Set<Comment>) session.getAttribute("comments");
-	    	for(Comment comment : aux)
-	    		if(comment.getId() == Long.parseLong(id_con))
-	    			if(comment.getNumero_votos() > 0) {//sino nos quedaríamos en negativo en los votos
-	    				comment.setNumero_votos(comment.getNumero_votos()-1);
-	    				//commentService.update(comment);
-	    			}
-	    	
-	    	session.setAttribute("comments", comments);
-	    	
-	    	return "user/comment";
-	    }
+	    	 //Cuando tengamos service
+			   //Comment commet = commentsService.fingById(Long.parseLong(id_con));
+			 	
+			 
+			 	//AHORA 
+			 	Suggestion suggestion = (Suggestion) session.getAttribute("suggestion");
+			 	Comment comment = null;
+			 	for(Comment con : suggestion.getComments())
+			 		if(con.getId() == Long.parseLong(id_con))
+			 			comment = con;
+			 
+			 	boolean existe = false;		 	
+			 	CitizenDB user = (CitizenDB) session.getAttribute("usuario");
+			 	for(VoteComment comment1: user.getVotesComments())
+			 		if(comment1.getComment().getId() == Long.parseLong(id_con))
+			 			existe = true;
+				if(!existe){
+					
+					VoteComment  voteComment = new VoteComment((long)1,comment,user);
+					Set<Comment> aux = (Set<Comment>) session.getAttribute("comments");
+					for(Comment comment1 : aux)
+		    		if(comment1.getId() == Long.parseLong(id_con)){ 
+		    			if(comment1.getNumero_votos()>0)//sino nos quedaríamos en negativo en los votos
+		    				comment1.setNumero_votos(comment1.getNumero_votos()-1);
+		    				//commentService.update(comment);
+		    		}
+				}
+		    	session.setAttribute("comments", comments);
+		    	
+		    	return "user/comment";
+		    }
 
 }

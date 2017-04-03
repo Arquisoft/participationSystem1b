@@ -38,9 +38,9 @@ public class MainController {
 	//private CitizenDB ciudadabo = null
 	
 	private CitizenDB ciudadano =
-			new CitizenDB("nombre2", "apellidos2", "nombre2@gmail.com", Calendar.getInstance().getTime(), "direccion", "nacionalidad", "71640211H", "PARTICIPANT");
+			new CitizenDB("nombre2", "apellidos2", "nombre2@gmail.com", Calendar.getInstance().getTime(), "direccion", "nacionalidad", "71640217H", "PARTICIPANT");
 	private CitizenDB administrador =
-			new CitizenDB("admin", "apellidos2", "admin@gmail.com", Calendar.getInstance().getTime(), "direccion", "nacionalidad", "71640211H", "ADMIN");
+			new CitizenDB("admin", "apellidos2", "admin@gmail.com", Calendar.getInstance().getTime(), "direccion", "nacionalidad", "71640219", "ADMIN");
 	
 	
 	//Descomentar cuando funciones service
@@ -155,6 +155,7 @@ public class MainController {
     	session.setAttribute("usuario", ciudadano);
     	return "user/home";
     }
+ 
     if(user.getPassword().equals(administrador.getPassword()) && user.getMail().equals(administrador.getMail())){
     	session.setAttribute("administrador", this.administrador);
     	return "admin/home";
@@ -248,7 +249,7 @@ public class MainController {
     	
     
     	@RequestMapping(value="/admin/edit/editSuggestion")
-    	public String editSuggestion(@RequestParam String title,
+    	public String editSuggestion(@RequestParam String titulo,
     			@RequestParam String contenido,HttpSession session){
     		
     		
