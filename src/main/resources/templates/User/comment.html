@@ -111,7 +111,7 @@ table{border-spacing:0;border-collapse:collapse}td,th{padding:0}
           <textarea name="comentario" id="comentario" class="form-control" placeholder="Type" >Contenido</textarea>
       </div>
     </div>
-          <p><button type="submit" class="btn btn-primary">Guardar</button><button type="reset" class="btn btn-primary">Cancelar</button></p>
+          <p><button id="guardar" type="submit" class="btn btn-primary">Guardar</button><button type="reset" class="btn btn-primary">Cancelar</button></p>
 </form>
 		</div>
 	</div>
@@ -151,12 +151,12 @@ table{border-spacing:0;border-collapse:collapse}td,th{padding:0}
 			                       <td>
 			                           <form action="#" th:action="@{/votaPosComment}"  method="post">
 			                               <input name="id_con" type="hidden" th:value="${comment.id}"/>
-			                               <button th:type="submit">+</button>
+			                               <button id="Si" th:type="submit">+</button>
 			                           </form></td>
 			                       <td>
 			                           <form action="#" th:action="@{/votaNegComment}"  method="post">
 			                               <input name="id_con" type="hidden" th:value="${comment.id}"/>
-			                               <button th:type="submit">-</button>
+			                               <button id="No" th:type="submit">-</button>
 			                           </form></td>
 			        </tr>
 				</tbody>
