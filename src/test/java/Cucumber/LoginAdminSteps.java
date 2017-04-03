@@ -25,7 +25,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = Application.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class CucumberSteps {
+public class LoginAdminSteps {
 
 	private static FirefoxDriver driver;
 	
