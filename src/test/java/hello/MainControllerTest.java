@@ -134,6 +134,7 @@ public class MainControllerTest {
 		assertTrue(vcom.getComment().getCitizenDB().equals(user));
 		assertTrue(vcom.getCitizenDB().equals(user));
 		assertFalse(vcom.equals(vcom2));
+		assertFalse(vcom.equals(new Comment()));
 		assertTrue(vcom2.equals(vcom2));
 		
 	}
