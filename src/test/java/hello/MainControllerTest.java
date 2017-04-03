@@ -14,11 +14,7 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
-import model.CitizenDB;
-import model.Comment;
-import model.Suggestion;
-import model.VoteComment;
-import model.VoteSuggestion;
+import model.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -79,6 +75,8 @@ public class MainControllerTest {
 		VoteComment vcom2 = new VoteComment(comment2, user);
 
 		Set<VoteComment> voteComments = new HashSet<VoteComment>();
+		voteComments.add(vcom);
+		voteComments.add(vcom2);
 
 		assertTrue(comment.getId().equals((long) 123));
 		assertTrue(comment.getCitizenDB().equals(user));
@@ -93,16 +91,28 @@ public class MainControllerTest {
 
 		comment.setVoteComments(voteComments);
 		assertTrue(comment.getVoteComments().equals(voteComments));
-
-
 	}
 	
 	@Test
 	public void testSuggestion() {
 		CitizenDB user = new CitizenDB("nombre", "apellidos", "mail@mail.mail", Calendar.getInstance().getTime(), "direccion", "naciolidad", "12345678D", "PARTICIPANT");
+		CitizenDB user2 = new CitizenDB("nombre2", "apellidos2", "mail2@mail2.mail", Calendar.getInstance().getTime(), "direccion2", "naciolidad2", "23456789D", "PARTICIPANT");
+
 		Suggestion sug = new Suggestion((long) 12, "Sugerencia de prueba", user);
 		Suggestion sug2 = new Suggestion((long) 21, "Sugerencia de prueba2", user);
 
+		VoteSuggestion vsug = new VoteSuggestion(user, sug);
+		VoteSuggestion vsug2 = new VoteSuggestion(user2, sug2);
+
+		Comment comment = new Comment((long)123, user, sug, "testeando");
+		Comment comment2 = new Comment((long)321, user, sug, "testeando");
+
+		Set<Comment> comments = new HashSet<Comment>();
+		comments.add(comment);
+		comments.add(comment2);
+		Set<VoteSuggestion> vSuggestions = new HashSet<VoteSuggestion>();
+		vSuggestions.add(vsug);
+		vSuggestions.add(vsug2);
 
 		assertTrue(sug.getId().equals((long) 12));
 		sug.setNum_votes(3);
@@ -110,8 +120,19 @@ public class MainControllerTest {
 		assertTrue(sug.getCitizenDB().equals(user));
 		assertTrue(sug.getTitle().equals("Sugerencia de prueba"));
 
+		sug.setCitizenDB(user2);
+		assertFalse(sug.getCitizenDB().equals(user));
+
+		sug.setTitle("Prueba de Sugerencia");
+		assertFalse(sug.getTitle().equals("Sugerencia de prueba"));
+
 		assertFalse(sug.equals(sug2));
 		assertTrue(sug2.equals(sug2));
+		assertFalse(sug.equals(new Suggestion()));
+
+		sug.setVoteSuggestions(vSuggestions);
+		assertTrue(sug.getVoteSuggestions().equals(vSuggestions));
+
 	}
 	
 	@Test
