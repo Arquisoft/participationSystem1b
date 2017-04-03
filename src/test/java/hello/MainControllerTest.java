@@ -10,11 +10,6 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
-import model.*;
-
-import model.key.CommentKey;
-import model.key.VoteCommentKey;
-import model.key.VoteSuggestionKey;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +22,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.client.RestTemplate;
 
-import controllers.Application;
+import asw.controllers.Application;
+import asw.model.*;
+import asw.model.key.CommentKey;
+import asw.model.key.VoteCommentKey;
+import asw.model.key.VoteSuggestionKey;
 
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
