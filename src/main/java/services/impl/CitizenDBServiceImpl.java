@@ -37,7 +37,8 @@ public class CitizenDBServiceImpl implements CitizenDBService{
 
 	@Override
 	public CitizenDB createCitizenDB(CitizenDB citizenDB) {
-		return citizenDBRepository.save(citizenDB);
+		CitizenDB citizen = this.citizenDBRepository.save(citizenDB);
+		return citizen;
 	}
 	
 	@Override
