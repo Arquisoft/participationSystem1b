@@ -224,27 +224,27 @@ public class MainController {
     
     
   
-    	
-    	@RequestMapping(value="/user/comment/commentSuggestion")
-        public String commentSuggestion( @RequestParam String comentario, HttpSession session){
-         
-    		CitizenDB user = (CitizenDB) session.getAttribute("usuario");
-    		Suggestion suggestion = (Suggestion) session.getAttribute("suggestion");
-    		Comment comment = new Comment((long)comments.size()+1, user, suggestion, comentario);
-    		
-    		//Esto cuando funcione el service
-    		//commentsService.createComment(comment);
-    		//comments = (Set<Comment>) commentsService.findBySuggestion(suggestion);
-    		//session.setAttribute("comments", comments);
-    		
-    		// AHORA 
-    		comments = suggestion.getComments();
-    		session.setAttribute("suggestion", suggestion);
-    		session.setAttribute("comments", comments);
-    		
-    		return "user/comment";
-    		
-    }
+    	//Ya lo hay en commentController
+//    	@RequestMapping(value="/user/comment/commentSuggestion")
+//        public String commentSuggestion( @RequestParam String comentario, HttpSession session){
+//         
+//    		CitizenDB user = (CitizenDB) session.getAttribute("usuario");
+//    		Suggestion suggestion = (Suggestion) session.getAttribute("suggestion");
+//    		Comment comment = new Comment((long)comments.size()+1, user, suggestion, comentario);
+//    		
+//    		//Esto cuando funcione el service
+//    		//commentsService.createComment(comment);
+//    		//comments = (Set<Comment>) commentsService.findBySuggestion(suggestion);
+//    		//session.setAttribute("comments", comments);
+//    		
+//    		// AHORA 
+//    		comments = suggestion.getComments();
+//    		session.setAttribute("suggestion", suggestion);
+//    		session.setAttribute("comments", comments);
+//    		
+//    		return "user/comment";
+//    		
+//    }
     	
     
     	@RequestMapping(value="/admin/edit/editSuggestion")
