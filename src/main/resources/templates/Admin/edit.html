@@ -91,6 +91,7 @@ table{border-spacing:0;border-collapse:collapse}td,th{padding:0}
   <body>
 
     <div class="container-fluid">
+    <h1>Página de administrador</h1>
 	<div class="row">
 		<div class="col-md-12">
 			<ul class="breadcrumb">
@@ -101,9 +102,9 @@ table{border-spacing:0;border-collapse:collapse}td,th{padding:0}
 					<a href="home">Sugerencias</a> <span class="divider">/</span>
 				</li>
 			</ul>
-			<h3>
-				Editar sugerencia:
-			</h3>
+			<p>
+				<strong>Editar Sugerencia:</strong>
+			</p>
 	<form action="/admin/edit/editSuggestion" class="form-horizontal" role="form">    	
     	<table class="table">
     		<thead>
@@ -128,8 +129,8 @@ table{border-spacing:0;border-collapse:collapse}td,th{padding:0}
     		<tbody>
     			<tr th:each="sug : ${session.sugerenciaAux}">
     							   <td th:text="${sug.id}"></td>	
-			                       <td th:text="${sug.title}"><input type="text"  class="form-control" id="inputType" placeholder="Type"/></td>
-			                       <td th:text="${sug.content}"><textarea class="form-control" id="inputType" placeholder="Type"/></td>			                  
+			                       <td th:text="${sug.title}"><input type="text"  class="form-control" id="idTitleSug" placeholder="Type"/></td>
+			                       <td th:text="${sug.content}"><textarea class="form-control" id="idContentSug" placeholder="Type"/></td>			                  
 				</tr>
 			</tbody>
 		 </table>

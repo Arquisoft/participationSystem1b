@@ -102,7 +102,7 @@ public class SuggestionController {
 //    	Suggestion suggestion = new Suggestion();
 //    	suggestion = SuggestionService.findById(id);
 		
-    	session.setAttribute("sugerencia", suggestion);
+//    	session.setAttribute("sugerencia", suggestion);
     	
     	return "user/suggestion";
     }
