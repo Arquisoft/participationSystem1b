@@ -5,6 +5,6 @@ Feature: Cucumber
 	
 Scenario: User can see all his suggestions
 	Given the user navigates to "http://localhost:8080/"
-	When the user introduces username "nombre@gmail.com" and password "password"	
+	When the user introduces username "nombre2@gmail.com" and password "password"
 	Then the user successfully logs in
 
