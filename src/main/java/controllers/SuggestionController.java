@@ -88,23 +88,23 @@ public class SuggestionController {
     	return "user/home";
     }
     
-    
-    @RequestMapping(value="/user/suggestion")
-    public String goMakeSuggestion(@RequestParam String id_sug,HttpSession session){
-    	//de nuevo en este método
-    	//sería lógico buscar la sugerencia
-    	//por id a través de un servicio
-    	//no obstante a falta de funcionamiento de los mismos iré
-    	//buscando las sugerencias en la lista creada 
-    	//en la misma session del usuario
-    	Long id = Long.parseLong(id_sug);
-		//Descomentar cuando solucionemos el error
-//    	Suggestion suggestion = new Suggestion();
-//    	suggestion = SuggestionService.findById(id);
-		
-//    	session.setAttribute("sugerencia", suggestion);
-    	
-    	return "user/suggestion";
-    }
+    //De momento no funciona correctamente
+//    @RequestMapping(value="/user/suggestion")
+//    public String goMakeSuggestion(@RequestParam String id_sug,HttpSession session){
+//    	//de nuevo en este método
+//    	//sería lógico buscar la sugerencia
+//    	//por id a través de un servicio
+//    	//no obstante a falta de funcionamiento de los mismos iré
+//    	//buscando las sugerencias en la lista creada 
+//    	//en la misma session del usuario
+//    	Long id = Long.parseLong(id_sug);
+//		//Descomentar cuando solucionemos el error
+////    	Suggestion suggestion = new Suggestion();
+////    	suggestion = SuggestionService.findById(id);
+//		
+////    	session.setAttribute("sugerencia", suggestion);
+//    	
+//    	return "user/suggestion";
+//    }
 
 }
