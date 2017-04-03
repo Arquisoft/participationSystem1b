@@ -11,6 +11,12 @@ public class VoteSuggestionKey  implements Serializable{
 	
 	Long citizenDB;
 	Long suggestion;
+
+	public VoteSuggestionKey(Long id, Long id2) {
+		this.citizenDB = id2;
+		this.suggestion = id;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

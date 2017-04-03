@@ -16,6 +16,7 @@ import java.util.Set;
 
 import model.*;
 
+import model.key.CommentKey;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -282,6 +283,34 @@ public class MainControllerTest {
 		assertFalse(vsug.equals(null));
 		assertTrue(vsug2.equals(vsug2));
 		
+	}
+
+	@Test
+	public void testCommentKey(){
+		long idUser = 1;
+		long idSuggestion = 12;
+		long idUser2 = 2;
+		long idSuggestion2 = 21;
+
+		CommentKey ck1 = new CommentKey(idSuggestion, idUser);
+		CommentKey ck2 = new CommentKey(idSuggestion, idUser2);
+		CommentKey ck3 = new CommentKey(idSuggestion2, idUser);
+		CommentKey ck4 = new CommentKey(idSuggestion2, idUser2);
+
+		assertFalse(ck1.equals(ck2));
+		assertFalse(ck1.equals(ck3));
+		assertFalse(ck1.equals(ck4));
+		assertFalse(ck2.equals(ck3));
+		assertFalse(ck2.equals(ck4));
+		assertFalse(ck3.equals(ck4));
+
+		assertTrue(ck1.getCitizenDB().equals(idUser));
+		ck1.setCitizenDB(idUser2);
+		assertFalse(ck1.getCitizenDB().equals(idUser));
+		assertTrue(ck1.getSuggestion().equals(idSuggestion));
+		ck1.setSuggestion(idSuggestion2);
+		assertFalse(ck1.getSuggestion().equals(idSuggestion));
+
 	}
 	
 }
