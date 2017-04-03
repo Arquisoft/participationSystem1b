@@ -11,6 +11,8 @@ import static org.junit.Assert.assertTrue;
 import java.net.URL;
 import java.util.Date;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
 import model.CitizenDB;
 import model.Comment;
@@ -64,7 +66,7 @@ public class MainControllerTest {
 		Comment comNull = new Comment();
 		assertNull(comNull.getId());
 		assertNull(comNull.getCitizenDB());
-		
+
 		Date fecha = Calendar.getInstance().getTime();
 		
 	    CitizenDB user = new CitizenDB("nombre", "apellidos", "mail@mail.mail", fecha, "direccion", "naciolidad", "12345678D", "PARTICIPANT");
@@ -72,6 +74,11 @@ public class MainControllerTest {
 
 	    Comment comment = new Comment((long)123, user, sug, "testeando");
 	    Comment comment2 = new Comment((long)321, user, sug, "testeando");
+
+		VoteComment vcom = new VoteComment(comment, user);
+		VoteComment vcom2 = new VoteComment(comment2, user);
+
+		Set<VoteComment> voteComments = new HashSet<VoteComment>();
 
 		assertTrue(comment.getId().equals((long) 123));
 		assertTrue(comment.getCitizenDB().equals(user));
@@ -81,7 +88,13 @@ public class MainControllerTest {
 		assertEquals(comment.getText(), "Texto de prueba");		
 		assertFalse(comment.equals(comment2));
 		assertTrue(comment2.equals(comment2));
-		
+
+		assertTrue(comment.getSuggestion().equals(sug));
+
+		comment.setVoteComments(voteComments);
+		assertTrue(comment.getVoteComments().equals(voteComments));
+
+
 	}
 	
 	@Test
@@ -90,13 +103,13 @@ public class MainControllerTest {
 		Suggestion sug = new Suggestion((long) 12, "Sugerencia de prueba", user);
 		Suggestion sug2 = new Suggestion((long) 21, "Sugerencia de prueba2", user);
 
-		
+
 		assertTrue(sug.getId().equals((long) 12));
 		sug.setNum_votes(3);
 		assertTrue(sug.getNum_votes() == 3);
 		assertTrue(sug.getCitizenDB().equals(user));
 		assertTrue(sug.getTitle().equals("Sugerencia de prueba"));
-		
+
 		assertFalse(sug.equals(sug2));
 		assertTrue(sug2.equals(sug2));
 	}

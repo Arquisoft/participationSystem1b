@@ -72,7 +72,7 @@ public class Comment {
 	}
 
 	public Set<VoteComment> getVoteComments() {
-		return new HashSet<>(voteComments);
+		return voteComments;
 	}
 	
 	Set<VoteComment> _getVoteComments() {
