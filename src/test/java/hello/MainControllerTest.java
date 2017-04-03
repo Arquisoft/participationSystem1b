@@ -16,6 +16,7 @@ import model.CitizenDB;
 import model.Comment;
 import model.Suggestion;
 import model.VoteComment;
+import model.VoteSuggestion;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -136,6 +137,32 @@ public class MainControllerTest {
 		assertFalse(vcom.equals(vcom2));
 		assertFalse(vcom.equals(null));
 		assertTrue(vcom2.equals(vcom2));
+		
+	}
+	
+	@Test
+	public void testVoteSuggestion() {
+		VoteSuggestion vSugNull = new VoteSuggestion();
+		assertNull(vSugNull.getSuggestion());
+		assertNull(vSugNull.getCitizenDB());
+		
+		Date fecha = Calendar.getInstance().getTime();
+		
+	    CitizenDB user = new CitizenDB("nombre", "apellidos", "mail@mail.mail", fecha, "direccion", "naciolidad", "12345678D", "PARTICIPANT");
+	    CitizenDB user2 = new CitizenDB("nombre2", "apellidos2", "mail2@mail.mail", fecha, "direccion2", "naciolidad2", "12345678E", "PARTICIPANT");
+
+	    Suggestion sug = new Suggestion((long) 12, "Sugerencia de prueba", user);
+	    Suggestion sug2 = new Suggestion((long) 21, "Sugerencia de prueba2", user2);
+	    
+	    VoteSuggestion vsug = new VoteSuggestion(user, sug);
+	    VoteSuggestion vsug2 = new VoteSuggestion(user2, sug2);
+
+		assertTrue(vsug.getSuggestion().getId().equals((long) 12));
+		assertTrue(vsug.getSuggestion().getCitizenDB().equals(user));
+		assertTrue(vsug.getCitizenDB().equals(user));
+		assertFalse(vsug.equals(vsug2));
+		assertFalse(vsug.equals(null));
+		assertTrue(vsug2.equals(vsug2));
 		
 	}
 	

@@ -22,7 +22,7 @@ public class VoteSuggestion {
 	@ManyToOne
 	private Suggestion suggestion;
 	
-	VoteSuggestion() {
+	public VoteSuggestion() {
 	}
 	
 	public VoteSuggestion(CitizenDB citizenDB , Suggestion suggestion){
