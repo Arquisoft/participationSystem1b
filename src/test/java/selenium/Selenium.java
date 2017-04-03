@@ -1,17 +1,11 @@
 package selenium;
 
-import static org.junit.Assert.fail;
-
 import java.util.concurrent.TimeUnit;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.springframework.boot.test.IntegrationTest;
@@ -29,8 +23,7 @@ import asw.controllers.Application;
 public class Selenium {
 	private WebDriver driver;
 	private String baseUrl;
-	private boolean acceptNextAlert = true;
-	private StringBuffer verificationErrors = new StringBuffer();
+	
 
 	@Before
 	public void setUp() throws Exception {
@@ -113,35 +106,13 @@ public class Selenium {
 		SeleniumUtils.textoPresentePagina(driver, "Titulo");
 		driver.findElement(By.id("Si")).click();
 		SeleniumUtils.textoPresentePagina(driver, "1");
-	}
-
-	/**
-	 * Sumar un voto a "NO" a una sugerencia
-	 * 
-	 * @throws Exception
-	 */
-	@Test
-	public void prueba05() throws Exception {
-		driver.get(baseUrl + "/");
-		SeleniumUtils.EsperaCargaPagina(driver, "id", "login", 25);
-		driver.findElement(By.id("email")).clear();
-		driver.findElement(By.id("email")).sendKeys("nombre2@gmail.com");
-		driver.findElement(By.id("password")).clear();
-		driver.findElement(By.id("password")).sendKeys("password");
-		driver.findElement(By.id("login")).click();
-		SeleniumUtils.textoPresentePagina(driver, "Titulo");
-		driver.findElement(By.id("Si")).click();
-		Thread.sleep(1000);
-		SeleniumUtils.textoPresentePagina(driver, "1");
-		driver.findElement(By.id("No")).click();
-		SeleniumUtils.textoPresentePagina(driver, "0");
-	}
+	}	
 
 	/**
 	 * Crear una sugerencia
 	 */
 	@Test
-	public void prueba06() {
+	public void prueba05() {
 		driver.get(baseUrl + "/");
 		SeleniumUtils.EsperaCargaPagina(driver, "id", "login", 25);
 		driver.findElement(By.id("email")).clear();
@@ -163,7 +134,7 @@ public class Selenium {
 	 * Arrepentirse de crear una sugerencia y volver a la lista de sugerencias
 	 */
 	@Test
-	public void prueba07() {
+	public void prueba06() {
 		driver.get(baseUrl + "/");
 		SeleniumUtils.EsperaCargaPagina(driver, "id", "login", 25);
 		driver.findElement(By.id("email")).clear();
@@ -180,7 +151,7 @@ public class Selenium {
 	 * Comentar sugerencia
 	 */
 	@Test
-	public void prueba08() {
+	public void prueba07() {
 		driver.get(baseUrl + "/");
 		driver.findElement(By.id("password")).clear();
 		driver.findElement(By.id("password")).sendKeys("password");
@@ -203,7 +174,7 @@ public class Selenium {
 	 * Votar "Si" comentario
 	 */
 	@Test
-	public void prueba09() {
+	public void prueba08() {
 		driver.get(baseUrl + "/");
 		driver.findElement(By.id("password")).clear();
 		driver.findElement(By.id("password")).sendKeys("password");
@@ -228,7 +199,7 @@ public class Selenium {
 	 * Votar "No" comentario
 	 */
 	@Test
-	public void prueba10() {
+	public void prueba09() {
 		driver.get(baseUrl + "/");
 		driver.findElement(By.id("password")).clear();
 		driver.findElement(By.id("password")).sendKeys("password");
@@ -255,7 +226,7 @@ public class Selenium {
 	 * @throws Exception
 	 */
 	@Test
-	public void prueba12() throws Exception {
+	public void prueba10() throws Exception {
 		driver.get(baseUrl + "/");
 		SeleniumUtils.EsperaCargaPagina(driver, "id", "login", 25);
 		driver.findElement(By.id("email")).clear();
@@ -274,7 +245,7 @@ public class Selenium {
 	 * @throws Exception
 	 */
 	@Test
-	public void prueba13() throws Exception {
+	public void prueba11() throws Exception {
 		driver.get(baseUrl + "/");
 		SeleniumUtils.EsperaCargaPagina(driver, "id", "login", 25);
 		driver.findElement(By.id("email")).clear();
@@ -294,7 +265,7 @@ public class Selenium {
 	 * @throws Exception
 	 */
 	@Test
-	public void prueba14() throws Exception {
+	public void prueba12() throws Exception {
 		driver.get(baseUrl + "/");
 		SeleniumUtils.EsperaCargaPagina(driver, "id", "login", 25);
 		driver.findElement(By.id("email")).clear();
@@ -315,7 +286,7 @@ public class Selenium {
 	 * @throws Exception
 	 */
 	@Test
-	public void prueba15() throws Exception {
+	public void prueba13() throws Exception {
 		driver.get(baseUrl + "/");
 		SeleniumUtils.EsperaCargaPagina(driver, "id", "login", 25);
 		driver.findElement(By.id("email")).clear();

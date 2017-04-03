@@ -31,6 +31,8 @@ public class CucumberSteps {
 	public void theUserNavigatesTo(String url) throws Throwable {
 		driver.get(baseUrl + "/");
 		assertTrue(su.isElementPresent(By.id(("email"))));
+		assertTrue(su.isElementPresent(By.id(("password"))));
+		
 		
 	}
 
