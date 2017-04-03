@@ -201,7 +201,7 @@ public class MainController {
      	Set<Suggestion> aux = (Set<Suggestion>) session.getAttribute("sugerencias");
     	for(Suggestion sug : aux)
     		if(sug.getId() == Long.parseLong(id_sug)){
-    			session.setAttribute("sugerenciaAux", sug);
+    			session.setAttribute("sugerencia", sug);
     			session.setAttribute("titulo", sug.getTitle());
     		}
     	return "admin/edit";
@@ -251,6 +251,28 @@ public class MainController {
     	@RequestMapping(value="/admin/edit/editSuggestion")
     	public String editSuggestion(@RequestParam String titulo,
     			@RequestParam String contenido,HttpSession session){
+    		//ESTO AHORA
+    		Suggestion suggestion = (Suggestion) session.getAttribute("sugerencia");
+    		Suggestion suggestion2 = suggestion;
+    		
+    		sugerencias.remove(suggestion);
+    		
+    		if(!titulo.equals(""))
+    			suggestion2.setTitle(titulo);
+    		if(!contenido.equals(""))
+    		suggestion2.setContent(contenido);
+    		
+    		sugerencias.add(suggestion2);
+    		
+    		//Cuando tengamos Service
+    		//Suggestion suggestion = (Suggestion) session.getAttribute("sugerencia");
+    		//suggestion.setTitle(titulo);
+    		//suggestion.setContent(contenido);
+    		//suggestionService.update(suggestion);
+    		//sugerencias = suggestionService.findAll();
+    		
+    		session.setAttribute("sugerencia", suggestion2);
+    		session.setAttribute("sugerencias", sugerencias);
     		
     		
     		return "admin/home";

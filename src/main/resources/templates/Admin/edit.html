@@ -126,7 +126,7 @@ table{border-spacing:0;border-collapse:collapse}td,th{padding:0}
     			</tr>
     		</thead>
     		<tbody>
-    			<tr th:each="sug : ${session.sugerenciaAux}">
+    			<tr th:each="sug : ${session.sugerencia}">
     							   <td th:text="${sug.id}"></td>	
 			                       <td th:text="${sug.title}"><input type="text" name="title" class="form-control" id="idTitleSug" placeholder="Type"/></td>
 			                       <td th:text="${sug.content}"><textarea class="form-control" name="contenido" id="idContentSug" placeholder="Type"/></td>			                  
