@@ -75,6 +75,8 @@ public class AdminController {
     	public String editSuggestion(@RequestParam String titulo,
     			@RequestParam String contenido,HttpSession session){
     		//ESTO AHORA
+			Set<Suggestion> lista = (Set<Suggestion>) session.getAttribute("sugerencias");
+			sugerencias=lista;
     		Suggestion suggestion = (Suggestion) session.getAttribute("sugerencia");
     		Suggestion suggestion2 = suggestion;
     		
